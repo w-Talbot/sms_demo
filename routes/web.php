@@ -11,6 +11,8 @@
 |
 */
 
+use App\Study;
+
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('welcome');
 
 Auth::routes();
@@ -44,6 +46,39 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/manage/edit',function(){
         return view('manage.edit');
+    });
+
+
+    //DEMO LG
+    //All studies
+    Route::get('/demo/example',function(){
+        return view('demo.example',[
+            'studies' => Study::all()
+            ]);
+    });
+
+    //Single Study
+    Route::get('/demo/example/{id}',function($id){
+        return view('demo.example_id', [
+            'study' => Study::find($id)
+        ]);
+    });
+
+
+
+
+
+    // All Studies
+    Route::get('/manage/edit',function(){
+        return view('manage.edit', [
+            'studies' => Study::all()
+        ]);
+    });
+//Single Study
+    Route::get('/manage/{id}',function($id){
+        return view('manage.study', [
+            'study' => Study::find($id)
+        ]);
     });
 });
 

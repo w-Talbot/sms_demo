@@ -3,11 +3,11 @@
     'elementName' => 'widgets'
 ])
 
-@section('content') 
-    @component('layouts.headers.auth') 
+@section('content')
+    @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
-            @slot('title') 
-                {{ __('Widgets') }} 
+            @slot('title')
+                {{ __('Widgets') }}
             @endslot
 
             <li class="breadcrumb-item"><a href="{{ route('page.index', 'widgets') }}">{{ __('Widgets') }}</a></li>
@@ -742,10 +742,10 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('argon') }}/vendor/fullcalendar/dist/fullcalendar.min.css">
-    <link rel="stylesheet" href="{{ asset('argon') }}/vendor/sweetalert2/dist/sweetalert2.min.css"> 
-@endpush 
+    <link rel="stylesheet" href="{{ asset('argon') }}/vendor/sweetalert2/dist/sweetalert2.min.css">
+@endpush
 
-@push('js') 
+@push('js')
     <script src="{{ asset('argon') }}/vendor/moment/min/moment.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/fullcalendar/dist/fullcalendar.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
