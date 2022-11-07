@@ -1,23 +1,23 @@
-<h1>DEMO</h1>
+{{--<h1>DEMO</h1>--}}
 
-        <h2>
-            this study is:
-            {{$study->study_name}}
-        </h2>
-        <p>
-            The api is:
-            {{$study->api}}
+{{--        <h2>--}}
+{{--            this study is:--}}
+{{--            {{$study->study_name}}--}}
+{{--        </h2>--}}
+{{--        <p>--}}
+{{--            The api is:--}}
+{{--            {{$study->api}}--}}
 
-            The url is:
-            {{$study->url}}
-        </p>
-<a href="/manage/{{$study->id}}/edit">Edit</a>
+{{--            The url is:--}}
+{{--            {{$study->url}}--}}
+{{--        </p>--}}
+{{--<a href="/manage/{{$study->id}}/edit">Edit</a>--}}
 
-<form method ="post" action="/manage/{{$study->id}}">
-    @csrf
-    @method('DELETE')
-    <button>DELETE</button>
-</form>
+{{--<form method ="post" action="/manage/{{$study->id}}">--}}
+{{--    @csrf--}}
+{{--    @method('DELETE')--}}
+{{--    <button>DELETE</button>--}}
+{{--</form>--}}
 
 
 

@@ -224,9 +224,30 @@
 
 
                             {{--                                <button type="button" class="btn btn-success">Save</button>--}}
-                            <button type="submit" class="btn btn-success mt-4">Update</button>
+                            <button type="submit" class="btn btn-success mt-4" onclick="confirm('{{ __("Are you sure you want to Update this item?") }}') ? this.parentElement.submit() : ''">Update</button>
+                        </form>
+
+                        <form method ="post" action="/manage/{{$study->id}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-danger my-4" onclick="confirm('{{ __("Are you sure you want to delete this item?") }}') ? this.parentElement.submit() : ''">
+                                {{ __('Delete') }}
+                            </button>
                         </form>
                     </div>
+
+{{--                    <div class="row">--}}
+{{--                        <div class="col-xl-12 order-xl-1">--}}
+{{--                        <form method ="post" action="/manage/{{$study->id}}" method="post">--}}
+{{--                            @csrf--}}
+{{--                            @method('DELETE')--}}
+{{--                            <button type="button" class="btn btn-danger" onclick="confirm('{{ __("Are you sure you want to delete this item?") }}') ? this.parentElement.submit() : ''">--}}
+{{--                                {{ __('Delete') }}--}}
+{{--                            </button>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                    </div>--}}
+
 
 
 

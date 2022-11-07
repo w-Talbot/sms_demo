@@ -101,12 +101,12 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                     {{--                            @can('update', $study)--}}
-                                                    <a class="dropdown-item" href="/manage/{{$study['id']}}">{{ __('View') }}</a>
+                                                    <a class="dropdown-item" href="/manage/{{$study->id}}/edit">{{ __('Edit') }}</a>
                                                     {{--                            @endcan--}}
                                                     {{--                            @can('delete', $study)--}}
-                                                    <form action="{{ route('item.destroy', $study) }}" method="post">
+                                                    <form method ="post" action="/manage/{{$study->id}}" method="post">
                                                         @csrf
-                                                        @method('delete')
+                                                        @method('DELETE')
                                                         <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this item?") }}') ? this.parentElement.submit() : ''">
                                                             {{ __('Delete') }}
                                                         </button>
