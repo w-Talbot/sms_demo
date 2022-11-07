@@ -34,6 +34,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
 
+
+
+
+
+
+
     // Test Routes:
     Route::get('/demo/example',function(){
         return view('demo.example');
@@ -51,35 +57,30 @@ Route::group(['middleware' => 'auth'], function () {
 
     //DEMO LG
     //All studies
-    Route::get('/demo/example',function(){
-        return view('demo.example',[
-            'studies' => Study::all()
-            ]);
-    });
+    Route::get('/manage/index', [\App\Http\Controllers\StudyController::class, 'index']);
+
+
+    //Show create form
+    Route::get('/manage/create', [\App\Http\Controllers\StudyController::class, 'create']);
+
+    //Show edit form
+    Route::get('/manage/{study}/edit', [\App\Http\Controllers\StudyController::class, 'edit']);
+
+    //Update listing
+    Route::put('/manage/{study}',[\App\Http\Controllers\StudyController::class, 'update']);
+
+
+    //Delete listing
+    Route::delete('/manage/{study}',[\App\Http\Controllers\StudyController::class, 'destroy']);
+
+
+    //Store new study
+    Route::post('/manage', [\App\Http\Controllers\StudyController::class, 'store']);
+
+
 
     //Single Study
-    Route::get('/demo/example/{id}',function($id){
-        return view('demo.example_id', [
-            'study' => Study::find($id)
-        ]);
-    });
-
-
-
-
-
-    // All Studies
-    Route::get('/manage/edit',function(){
-        return view('manage.edit', [
-            'studies' => Study::all()
-        ]);
-    });
-//Single Study
-    Route::get('/manage/{id}',function($id){
-        return view('manage.study', [
-            'study' => Study::find($id)
-        ]);
-    });
+    Route::get('/manage/{study}',[\App\Http\Controllers\StudyController::class, 'show']);
 });
 
 

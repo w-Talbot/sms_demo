@@ -8,10 +8,10 @@
     @component('layouts.headers.auth')
         @component('layouts.headers.breadcrumbs')
             @slot('title')
-                {{ __('Randomisation') }}
+                {{ __('#') }}
             @endslot
 
-            <li class="breadcrumb-item"><a href="{{ route('item.index') }}">{{ __('Configuration') }}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ __('Configuration') }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('New Study Configuration') }}</li>
         @endcomponent
     @endcomponent
@@ -31,188 +31,200 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" class="item-form" action="{{ route('item.store') }}" autocomplete="off" enctype="multipart/form-data">
+                        <form method="post" class="item-form" action="/manage" autocomplete="off" enctype="multipart/form-data">
                             @csrf
 
                             <h6 class="heading-small text-muted mb-4">{{ __('General') }}</h6>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">Study Name:</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name of study') }}" value="{{ old('name') }}" required autofocus>
+{{--                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">--}}
+                                <div class="form-group">
+                                    <label class="form-control-label" for="study_name">Study Name:</label>
+                                    <input type="text" name="study_name" id="study_name" class="form-control" placeholder="{{ __('Name of study') }}" value="{{ old('study-name') }}" required autofocus>
 
-                                    @include('alerts.feedback', ['field' => 'name'])
+                                    @error('study_name')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
                                 </div>
-                                @include('alerts.feedback', ['field' => 'category_id'])
                             </div>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">API:</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('ex: AAB1234CDE456G789HIJ10K') }}" value="{{ old('name') }}" required autofocus>
+{{--                                <div class="form-group{{ $errors->has('api') ? ' has-danger' : '' }}">--}}
+                                <div class="form-group">
+                                    <label class="form-control-label" for="api">API:</label>
 
-                                    @include('alerts.feedback', ['field' => 'name'])
+                                    <input type="text" name="api" id="api" class="form-control" placeholder="{{ __('ex: AAB1234CDE456G789HIJ10K') }}" value="{{ old('api') }}" required autofocus>
+                                    @error('api')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
                                 </div>
-                                @include('alerts.feedback', ['field' => 'category_id'])
                             </div>
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">Study URL:</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/') }}" value="{{ old('name') }}" required autofocus>
-
-                                    @include('alerts.feedback', ['field' => 'name'])
+                                <div class="form-group">
+{{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
+                                    <label class="form-control-label" for="url">Study URL:</label>
+                                    <input type="text" name="url" id="url" class="form-control" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/') }}" value="{{ old('url') }}" required autofocus>
+                                    @error('study_name')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
                                 </div>
-                                @include('alerts.feedback', ['field' => 'category_id'])
                             </div>
-                            <h6 class="heading-small text-muted mb-4">{{ __('When to send invitations') }}</h6>
+{{--                            <h6 class="heading-small text-muted mb-4">{{ __('When to send invitations') }}</h6>--}}
 
-                            <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Please type variable as in REDCap including event ex: [baseline_arm_1][var_name]') }}" value="{{ old('name') }}" required autofocus>
+{{--                            <div class="pl-lg-4">--}}
+{{--                                <div class="form-group">--}}
+{{--                                <div class="form-group{{ $errors->has('rc-var') ? ' has-danger' : '' }}">--}}
+{{--                                    <label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>--}}
+{{--                                    <input type="text" name="rc-var" id="input-rc-var" class="form-control" placeholder="{{ __('Please type variable as in REDCap including event ex: [baseline_arm_1][var_name]') }}" value="{{ old('rc-var') }}" required autofocus>--}}
 
-                                    @include('alerts.feedback', ['field' => 'name'])
-                                </div>
-                                @include('alerts.feedback', ['field' => 'category_id'])
-                            </div>
-                            <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">How many days to trigger</label>
-                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('#') }}" value="{{ old('name') }}" required autofocus>
+{{--                                    @error('rc-var')--}}
+{{--                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="pl-lg-4">--}}
+{{--                                <div class="form-group">--}}
+{{--                                <div class="form-group{{ $errors->has('num-days') ? ' has-danger' : '' }}">--}}
+{{--                                    <label class="form-control-label" for="input-timer">How many days to trigger</label>--}}
+{{--                                    <input type="text" name="num-days" id="input-num-days" class="form-control" placeholder="{{ __('#') }}" value="{{ old('num-days') }}" required autofocus>--}}
 
-                                    @include('alerts.feedback', ['field' => 'name'])
-                                </div>
-                                @include('alerts.feedback', ['field' => 'category_id'])
-                            </div>
+{{--                                    @error('num-days')--}}
+{{--                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
 
-                            <div class="pl-lg-4">
+{{--                            </div>--}}
 
-                                <div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
+{{--                            <div class="pl-lg-4">--}}
+
+{{--                                <div class="form-group{{ $errors->has('invitation-group') ? ' has-danger' : '' }}">--}}
 
 
-                                    <label class="form-control-label" for="input-role">Trigger</label>
-                                    <div class = "container">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Send every
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4">
-                                                <select name="#" id="#" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Category') }}" required>
-                                                    <option value="">--Select Day--</option>
+{{--                                    <label class="form-control-label" for="input-role">Trigger</label>--}}
+{{--                                    <div class = "container">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <div class="form-check">--}}
+{{--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
+{{--                                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                                        Send every--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-4">--}}
+{{--                                                <select name="#" id="#" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Category') }}" required>--}}
+{{--                                                    <option value="">--Select Day--</option>--}}
 
-                                                    <option value="imd_score" >Day</option>
-                                                    <option value="imd_score" >Weekday</option>
-                                                    <option value="imd_score" >Weekend Day</option>
-                                                    <option value="imd_score" >Sunday</option>
-                                                    <option value="imd_score" >Monday</option>
-                                                    <option value="imd_score" >Tuesday</option>
-                                                    <option value="imd_score" >Wednesday</option>
-                                                    <option value="imd_score" >Thursday</option>
-                                                    <option value="imd_score" >Friday</option>
-                                                    <option value="imd_score" >Saturday</option>
+{{--                                                    <option value="imd_score" >Day</option>--}}
+{{--                                                    <option value="imd_score" >Weekday</option>--}}
+{{--                                                    <option value="imd_score" >Weekend Day</option>--}}
+{{--                                                    <option value="imd_score" >Sunday</option>--}}
+{{--                                                    <option value="imd_score" >Monday</option>--}}
+{{--                                                    <option value="imd_score" >Tuesday</option>--}}
+{{--                                                    <option value="imd_score" >Wednesday</option>--}}
+{{--                                                    <option value="imd_score" >Thursday</option>--}}
+{{--                                                    <option value="imd_score" >Friday</option>--}}
+{{--                                                    <option value="imd_score" >Saturday</option>--}}
 
-                                                </select>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="example-time-input" class="form-control-label">At time</label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="example-time-input" class="form-control-label">At time</label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col">--}}
+{{--                                                <div class="form-group">--}}
 {{--                                                    <label for="example-time-input" class="form-control-label">Time</label>--}}
-                                                    <input class="form-control" type="time" value="10:30:00" id="example-time-input">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Send every
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('7') }}" value="#" required autofocus>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="example-time-input" class="form-control-label"> Days</label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <input type="text" name="name" id="input-name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('0') }}" value="#" required autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="example-time-input" class="form-control-label"> Hours</label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <input type="text" name="name" id="#" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('0') }}" value="#" required autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="form-group">
-                                                    <label for="example-time-input" class="form-control-label"> Minutes</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Send at exact date/time:
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label for="example-datetime-local-input" class="form-control-label">Datetime</label>
-                                                    <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Recurrence:
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <select name="#" id="#" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Category') }}" required>
-                                                    <option value="">--Select Recurrence--</option>
+{{--                                                    <input class="form-control" type="time" value="10:30:00" id="example-time-input">--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <div class="form-check">--}}
+{{--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
+{{--                                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                                        Send every--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <input type="text" name="days" id="input-days" class="form-control{{ $errors->has('days') ? ' is-invalid' : '' }}" placeholder="{{ __('7') }}" value="#" required autofocus>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="example-time-input" class="form-control-label"> Days</label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <input type="text" name="hours" id="input-hours" class="form-control{{ $errors->has('hours') ? ' is-invalid' : '' }}" placeholder="{{ __('0') }}" value="#" required autofocus>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="example-time-input" class="form-control-label"> Hours</label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <input type="text" name="mins" id="#" class="form-control{{ $errors->has('mins') ? ' is-invalid' : '' }}" placeholder="{{ __('0') }}" value="#" required autofocus>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col-2">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="example-time-input" class="form-control-label"> Minutes</label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col">--}}
+{{--                                                <div class="form-check">--}}
+{{--                                                    <input class="form-check-input" type="checkbox" value="" id="exact-d-t-text">--}}
+{{--                                                    <label class="form-check-label" for="exact-d-t-text">--}}
+{{--                                                        Send at exact date/time:--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <label for="exact-d-t" class="form-control-label">Datetime</label>--}}
+{{--                                                    <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="exact-d-t">--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col">--}}
+{{--                                                <div class="form-check">--}}
+{{--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
+{{--                                                    <label class="form-check-label" for="flexCheckDefault">--}}
+{{--                                                        Recurrence:--}}
+{{--                                                    </label>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="col">--}}
+{{--                                                <select name="recurrence" id="input-recurrence" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Category') }}" required>--}}
+{{--                                                    <option value="">--Select Recurrence--</option>--}}
 
-                                                    <option value="imd_score" >Send only once</option>
-                                                    <option value="imd_score" >Send up to 2 times</option>
-                                                    <option value="imd_score" >Send up to 3 times</option>
-                                                    <option value="imd_score" >Send up to 4 times</option>
-                                                    <option value="imd_score" >Send up to 5 times</option>
+{{--                                                    <option value="imd_score" >Send only once</option>--}}
+{{--                                                    <option value="imd_score" >Send up to 2 times</option>--}}
+{{--                                                    <option value="imd_score" >Send up to 3 times</option>--}}
+{{--                                                    <option value="imd_score" >Send up to 4 times</option>--}}
+{{--                                                    <option value="imd_score" >Send up to 5 times</option>--}}
 
-                                                </select>
-                                            </div>
-                                        </div>
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
 
-                                        <button type="button" class="btn btn-primary">Add another trigger</button>
+{{--                                        <button type="button" class="btn btn-primary">Add another trigger</button>--}}
 
-                                    </div>
-                                    @include('alerts.feedback', ['field' => 'category_id'])
-                                </div>
-                            </div>
-                                <button type="button" class="btn btn-success">Save</button>
-                            </div>
+{{--                                    </div>--}}
+{{--                                    @include('alerts.feedback', ['field' => 'category_id'])--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+
+{{--                                <button type="button" class="btn btn-success">Save</button>--}}
+                            <button type="submit" class="btn btn-success mt-4">Save</button>
                         </form>
                     </div>
 
