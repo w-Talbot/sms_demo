@@ -47,22 +47,17 @@ class StudyController extends Controller
                 $inv_array[$key] = $request->input($key);
             }
         }
-//            $param = $inv_array;
-            $stop = 0;
-            json_encode($inv_array);
-
 
             $formFields = $request->validate([
                 'study_name' => 'required',
                 'api' => 'required',
                 'url' => 'required']);
 
-dd($request);
+            $formFields['sms_invitations'] = json_encode($inv_array);
 
+            Study::create($formFields)->with('success-message', 'Study created successfully!');
 
-//            Study::create($formFields)->with('success-message', 'Study created successfully!');
-
-//            return redirect('/manage/index');
+            return redirect('/manage/index');
         }
 
     //Delete study
