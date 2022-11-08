@@ -68,37 +68,39 @@
                                 </div>
                             </div>
 {{--                            <h6 class="heading-small text-muted mb-4">{{ __('When to send invitations') }}</h6>--}}
-                            <div>
+
                                 <h6 class="heading-small text-muted mb-4">Invitations</h6>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>
-                                        <input type="text" name="rc-var" id="input-rc-var" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>
+                                        <label class="form-control-label" for="calc_var_0">REDCap Variable to Calculate from</label>
+                                        <input type="text" name="calc_var_0" id="calc_var_0" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>
                                     </div>
                                 </div>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="input-logic">Logic (optional)</label>
-                                        <input type="text" name="days" id="input-num-days" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>
-                                        </div></div>
-
-                                <div class="pl-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-timer">Send SMS after # days</label>
-                                        <input type="text" name="num-days" id="input-num-days" class="form-control" required autofocus>
-                                        </div></div>
-
-                                <div class="pl-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="input-timer">Send every # days:</label>
-                                        <input type="text" name="days" id="input-num-days" class="form-control" required autofocus>
+                                        <label class="form-control-label" for="logic_0">Logic (optional)</label>
+                                        <input type="text" name="logic_0" id="logic_0" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>
                                     </div>
                                 </div>
 
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="recurrence">Number of recurrences:</label>
-                                        <input type="text" name="recurrence" id="recurrence" class="form-control" required autofocus>
+                                        <label class="form-control-label" for="sms_timer_0">Send SMS after # days</label>
+                                        <input type="text" name="sms_timer_0" id="sms_timer_0" class="form-control" required autofocus>
+                                    </div>
+                                </div>
+
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="num_days_0">Send every # days:</label>
+                                        <input type="text" name="num_days_0" id="num_days_0" class="form-control" required autofocus>
+                                    </div>
+                                </div>
+
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="recurrence_0">Number of recurrences:</label>
+                                        <input type="text" name="recurrence_0" id="recurrence_0" class="form-control" required autofocus>
                                     </div>
                                 </div>
 
@@ -109,7 +111,6 @@
                             <button type="submit" class="btn btn-success mt-4">Save</button>
                         </form>
                     </div>
-
 
 
                 </div>
@@ -132,39 +133,42 @@
 @push('js')
     <script type="text/javascript">
 
+        var sfx = 0;
+        var cv = "calc_var_" . sfx;
         $("#rowAdder").click(function () {
-            newRowAdd =
 
+            sfx = sfx + 1;
+            newRowAdd =
 
                 '<div id="addrow"><h6 class="heading-small text-muted mb-4">--Invitation--</h6>' +
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>' +
-                '<input type="text" name="rc-var" id="input-rc-var" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>' +
+                '<label class="form-control-label" for="calc_var_' + sfx + '">REDCap Variable to Calculate from</label>' +
+                '<input type="text" name="calc_var_' + sfx + '" id="calc_var_' + sfx + '" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>' +
+                '</div></div>' +
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="logic_' + sfx + '">Logic (optional)</label>' +
+                '<input type="text" name="logic_' + sfx + '" id="logic_' + sfx + '" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="input-logic">Logic (optional)</label>' +
-                '<input type="text" name="days" id="input-num-days" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>' +
+                '<label class="form-control-label" for="sms_timer_' + sfx + '">Send SMS after # days</label>' +
+                '<input type="text" name="sms_timer_' + sfx + '" id="sms_timer_' + sfx + '" class="form-control" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="input-timer">Send SMS after # days</label>' +
-                '<input type="text" name="num-days" id="input-num-days" class="form-control" required autofocus>' +
+                '<label class="form-control-label" for="num_days_' + sfx + '">Send every # days:</label>' +
+                '<input type="text" name="num_days_' + sfx + '" id="num_days_' + sfx + '" class="form-control" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="input-timer">Send every # days:</label>' +
-                '<input type="text" name="days" id="input-num-days" class="form-control" required autofocus>' +
-                '</div></div>'+
-
-                '<div class="pl-lg-4">' +
-                '<div class="form-group">' +
-                '<label class="form-control-label" for="recurrence">Number of recurrences:</label>' +
-                '<input type="text" name="recurrence" id="recurrence" class="form-control" required autofocus>' +
+                '<label class="form-control-label" for="recurrence_' + sfx + '">Number of recurrences:</label>' +
+                '<input type="text" name="recurrence_' + sfx + '" id="recurrence_' + sfx + '" class="form-control" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="input-group m-3">' +
@@ -174,6 +178,7 @@
                 ' </div> </div>';
 
             $('#newinput').append(newRowAdd);
+
         });
 
         $("body").on("click", "#DeleteRow", function () {

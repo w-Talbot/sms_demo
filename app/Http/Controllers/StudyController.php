@@ -43,10 +43,12 @@ class StudyController extends Controller
                 'study_name' => 'required',
                         'api' => 'required',
                         'url' => 'required']);
+dd($request);
 
-            Study::create($formFields)->with('success-message', 'Study created successfully!');
 
-            return redirect('/manage/index');
+//            Study::create($formFields)->with('success-message', 'Study created successfully!');
+
+//            return redirect('/manage/index');
         }
 
     //Delete study
