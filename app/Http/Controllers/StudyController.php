@@ -39,10 +39,24 @@ class StudyController extends Controller
 
     //Store
         public function store(Request $request){
+
+        $inv_array = array();
+
+        foreach($request->except('_token') as $key => $value){
+            if(preg_match(' /[0-9]/', substr($key, -1, 1))){
+                $inv_array[$key] = $request->input($key);
+            }
+        }
+//            $param = $inv_array;
+            $stop = 0;
+            json_encode($inv_array);
+
+
             $formFields = $request->validate([
                 'study_name' => 'required',
-                        'api' => 'required',
-                        'url' => 'required']);
+                'api' => 'required',
+                'url' => 'required']);
+
 dd($request);
 
 
