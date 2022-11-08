@@ -35,52 +35,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'PageController@index']);
 
 
-
-
-
-
-
-    // Test Routes:
-    Route::get('/demo/example',function(){
-        return view('demo.example');
-    });
-    Route::get('/manage/index',function(){
-        return view('manage.index');
-    });
-    Route::get('/manage/create',function(){
-        return view('manage.create');
-    });
-    Route::get('/manage/edit',function(){
-        return view('manage.edit');
-    });
-
-
-    //DEMO LG
-    //All studies
+    //Study Routes
     Route::get('/manage/index', [\App\Http\Controllers\StudyController::class, 'index']);
-
-
-    //Show create form
     Route::get('/manage/create', [\App\Http\Controllers\StudyController::class, 'create']);
-
-    //Show edit form
     Route::get('/manage/{study}/edit', [\App\Http\Controllers\StudyController::class, 'edit']);
-
-    //Update listing
     Route::put('/manage/{study}',[\App\Http\Controllers\StudyController::class, 'update']);
-
-
-    //Delete listing
     Route::delete('/manage/{study}',[\App\Http\Controllers\StudyController::class, 'destroy']);
-
-
-    //Store new study
     Route::post('/manage', [\App\Http\Controllers\StudyController::class, 'store']);
-
-
-
-    //Single Study
     Route::get('/manage/{study}',[\App\Http\Controllers\StudyController::class, 'show']);
+
+
+    //For testing
+    Route::get('/demo/example', function(){
+        return view('demo.example',[
+            'studies'=> Study::all()
+        ]);
+    });
+
+
 });
 
 

@@ -1,140 +1,238 @@
-{{--<h1>DEMO</h1>--}}
 
-{{--@unless(count($studies) == 0)--}}
-{{--@foreach ($studies as $study)--}}
-{{--    <h2>--}}
-{{--        <a href="/demo/example/{{$study['id']}}">--}}
+    <!doctype html>
+<html lang="en">
 
-{{--        {{$study['study_name']}} </a>--}}
-{{--    </h2>--}}
-{{--    <p>--}}
-{{--        {{$study['api']}}--}}
-{{--    </p>--}}
+<head>
+    <title>Add or Remove Input Fields Dynamically</title>
+    <link rel="stylesheet" href=
+        "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href=
+        "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
 
-{{--@endforeach--}}
-{{--@else--}}
-{{--<p> No studies found </p>--}}
-{{--@endunless--}}
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #rowAdder {
+            margin-left: 17px;
+        }
+    </style>
+</head>
+
+<body>
+<h2 style="color:green">GeeksforGeeks</h2>
+<strong> Adding and Deleting Input fields Dynamically</strong>
+
+<div style="width:40%;">
+
+    <form>
+        <div class="">
+            <div class="col-lg-12">
+                <div id="row">
+                    <div class="input-group m-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger"
+                                    id="DeleteRow" type="button">
+                                <i class="bi bi-trash"></i>
+                                Delete
+                            </button>
+                        </div>
+                        <input type="text"
+                               class="form-control m-input">
+                    </div>
+                </div>
+
+                <div id="newinput"></div>
+                <button id="rowAdder" type="button"
+                        class="btn btn-dark">
+						<span class="bi bi-plus-square-dotted">
+						</span> ADD
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 
 
-
-{{--SIMPLE A+OLD CODE ABOVE FOR TESTING AND EXAMPLES--}}
 
 
 @extends('layouts.app', [
-    'navClass' => 'navbar-light bg-secondary',
-    'searchClass' => 'navbar-search-dark',
-    'parentSection' => 'dashboards',
-    'elementName' => 'dashboard-alternative'
+    'title' => __('New Study'),
+    'parentSection' => 'laravel',
+    'elementName' => 'study-create'
 ])
 
 @section('content')
-    <div class="header pb-6">
-        <div class="container-fluid">
-            <div class="header-body">
-                <div class="row align-items-center py-4">
-                    <div class="col-lg-6 col-7">
-                        <h6 class="h2 d-inline-block mb-0">Dashboard</h6>
-                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                            <ol class="breadcrumb breadcrumb-links">
-                                <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="fas fa-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="{{ route('page.index', 'dashboard-alternative') }}">Dashboards</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Alternative</li>
-                            </ol>
-                        </nav>
+    @component('layouts.headers.auth')
+        @component('layouts.headers.breadcrumbs')
+            @slot('title')
+                {{ __('#') }}
+            @endslot
+
+            <li class="breadcrumb-item"><a href="#">{{ __('Configuration') }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('New Study Configuration') }}</li>
+        @endcomponent
+    @endcomponent
+
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-xl-12 order-xl-1">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <h3 class="mb-0">{{ __('Study Config Form') }}</h3>
+                            </div>
+                            <div class="col-4 text-right">
+                                <a href="/manage/index" class="btn btn-sm btn-primary">{{ __('Back to study list') }}</a>
+                            </div>
+                        </div>
                     </div>
+                    <div class="card-body">
+                        <form method="post" class="item-form" action="/manage" autocomplete="off" enctype="multipart/form-data">
+                            @csrf
+
+                            <h6 class="heading-small text-muted mb-4">{{ __('General') }}</h6>
+                            <div class="pl-lg-4">
+                                                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="study_name">Study Name:</label>
+                                    <input type="text" name="study_name" id="study_name" class="form-control" placeholder="{{ __('Name of study') }}" value="{{ old('study-name') }}" required autofocus>
+
+                                    @error('study_name')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="pl-lg-4">
+                                                                <div class="form-group{{ $errors->has('api') ? ' has-danger' : '' }}">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="api">API:</label>
+
+                                    <input type="text" name="api" id="api" class="form-control" placeholder="{{ __('ex: AAB1234CDE456G789HIJ10K') }}" value="{{ old('api') }}" required autofocus>
+                                    @error('api')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                                                    <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="url">Study URL:</label>
+                                    <input type="text" name="url" id="url" class="form-control" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/') }}" value="{{ old('url') }}" required autofocus>
+                                    @error('study_name')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <h6 class="heading-small text-muted mb-4">{{ __('When to send invitations') }}</h6>
+
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <div class="form-group{{ $errors->has('rc-var') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>
+                                        <input type="text" name="rc-var" id="input-rc-var" class="form-control" placeholder="{{ __('Please type variable as in REDCap including event ex: [baseline_arm_1][var_name]') }}" value="{{ old('rc-var') }}" required autofocus>
+
+                                        @error('rc-var')
+                                        <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="pl-lg-4">
+
+                                    <div class="pl-lg-4">
+
+                                                <button type="button" class="btn btn-primary">Add another trigger</button>
+
+                                            </div>
+                                            @include('alerts.feedback', ['field' => 'category_id'])
+                                        </div>
+                                    </div>
+
+
+                                                                    <button type="button" class="btn btn-success">Save</button>
+                                    <button type="submit" class="btn btn-success mt-4">Save</button>
+                        </form>
+                    </div>
+
+
 
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Page content -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-8">
-                <div class="card">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Studies</h3>
-                            </div>
-                            <div class="col text-right">
-                                <a href="#!" class="btn btn-sm btn-primary">Add new study</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Logo</th>
-                                    <th scope="col" class="sort" data-sort="name">Study</th>
-                                    <th scope="col"></th>
-                                </tr>
-                                </thead>
-                                <tbody class="list">
-                                    @foreach ($studies as $study)
-                                        <tr>
-                                            <td>img here</td>
-                                            <td>{{ $study['study_name'] }}</td>
-                                    {{--        <td>{{ $study->category->name }}</td>--}}
-                                    {{--        <td>--}}
-                                    {{--            @if ($study->picture)--}}
-                                    {{--                <img src="{{ $study->path() }}" alt="" style="max-width: 150px;">--}}
-                                    {{--            @endif--}}
-                                    {{--        </td>--}}
-                                    {{--        <td>--}}
-                                    {{--            @foreach ($study->tags as $tag)--}}
-                                    {{--                <span class="badge badge-default" style="background-color:{{ $tag->color }}">{{ $tag->name }}</span>--}}
-                                    {{--            @endforeach--}}
-                                    {{--        </td>--}}
-                                    {{--        <td>{{ $study->created_at->format('d/m/Y H:i') }}</td>--}}
-                                    {{--        @can('manage-items', App\User::class)--}}
-                                                <td class="text-right">
-                                    {{--                @if (auth()->user()->can('update', $study) || auth()->user()->can('delete', $study))--}}
-                                                        <div class="dropdown">
-                                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <i class="fas fa-ellipsis-v"></i>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                    {{--                            @can('update', $study)--}}
-                                                                    <a class="dropdown-item" href="/demo/example/{{$study['id']}}">{{ __('Edit') }}</a>
-                                    {{--                            @endcan--}}
-                                    {{--                            @can('delete', $study)--}}
-                                                                    <form action="{{ route('item.destroy', $study) }}" method="post">
-                                                                        @csrf
-                                                                        @method('delete')
-                                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this item?") }}') ? this.parentElement.submit() : ''">
-                                                                            {{ __('Delete') }}
-                                                                        </button>
-                                                                    </form>
-                                    {{--                            @endcan--}}
-                                                            </div>
-                                                        </div>
-                                    {{--                @endif--}}
-                                                </td>
-                                    {{--        @endcan--}}
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-
-        <!-- Footer -->
         @include('layouts.footers.auth')
     </div>
 @endsection
 
-@push('js')
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-    <script src="{{ asset('argon') }}/vendor/jvectormap-next/jquery-jvectormap.min.js"></script>
-    <script src="{{ asset('argon') }}/js/vendor/jvectormap/jquery-jvectormap-world-mill.js"></script>
+@push('css')
+    <link rel="stylesheet" href="{{ asset('argon') }}/vendor/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('argon') }}/vendor/quill/dist/quill.core.css">
+
 @endpush
 
+@push('js')
+    <script type="text/javascript">
+
+        $("#rowAdder").click(function () {
+            newRowAdd =
+
+
+                '<div id="addrow"><h6 class="heading-small text-muted mb-4">When to send invitations</h6>' +
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>' +
+                '<input type="text" name="rc-var" id="input-rc-var" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="input-logic">Logic (optional)</label>' +
+                '<input type="text" name="days" id="input-num-days" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="input-timer">Send SMS after # days</label>' +
+                '<input type="text" name="num-days" id="input-num-days" class="form-control" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="input-timer">Send every # days:</label>' +
+                '<input type="text" name="days" id="input-num-days" class="form-control" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="recurrence">Number of recurrences:</label>' +
+                '<input type="text" name="recurrence" id="recurrence" class="form-control" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="input-group m-3">' +
+                '<div class="input-group-prepend">' +
+                '<button class="btn btn-danger" id="DeleteRow" type="button">' +
+                '<i class="bi bi-trash"></i> Remove Invitation</button> </div>' +
+                ' </div> </div>';
+
+            $('#newinput').append(newRowAdd);
+        });
+
+        $("body").on("click", "#DeleteRow", function () {
+            $(this).parents("#addrow").remove();
+        })
+    </script>
+    <script src="{{ asset('argon') }}/vendor/select2/dist/js/select2.min.js"></script>
+    <script src="{{ asset('argon') }}/vendor/quill/dist/quill.min.js"></script>
+    <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ asset('argon') }}/js/items.js"></script>
+@endpush
