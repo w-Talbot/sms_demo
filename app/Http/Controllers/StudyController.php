@@ -22,7 +22,24 @@ class StudyController extends Controller
 
     //Show edit form
     public function edit(Study $study){
-        return view('manage.edit', ['study' => $study]);
+
+        $data = json_decode($study->sms_invitations);
+
+        $tmp_array = array();
+        foreach ($data as $key => $value){
+            $tmp_array[$key] = $value;
+            $stop = 0;
+        }
+
+//        $tmp_array = array();
+//        $i = 0;
+//        foreach ($tmp as $key){
+//            $test = $key;
+////           $tmp_array[$tmp[$i]] = $key;
+//            $stop = 0;
+//        }
+        $stop =0;
+        return view('manage.edit', ['study' => $study , 'tmp_array' => $tmp_array ]);
     }
 
     //Update listing
@@ -40,13 +57,22 @@ class StudyController extends Controller
     //Store
         public function store(Request $request){
 
-        $inv_array = array();
+        //original works
+//        $inv_array = array();
+//        foreach($request->except('_token') as $key => $value){
+//            if(preg_match(' /[0-9]/', substr($key, -1, 1))){
+//                $inv_array[$key] = $request->input($key);
+//            }
+//        }
 
-        foreach($request->except('_token') as $key => $value){
-            if(preg_match(' /[0-9]/', substr($key, -1, 1))){
-                $inv_array[$key] = $request->input($key);
+
+            $inv_array = array();
+            foreach($request->except('_token') as $key => $value){
+                if(preg_match(' /[0-9]/', substr($key, -1, 1))){
+                    $inv_array[$key] = $request->input($key);
+                }
             }
-        }
+
 
             $formFields = $request->validate([
                 'study_name' => 'required',

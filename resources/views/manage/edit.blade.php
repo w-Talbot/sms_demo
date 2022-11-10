@@ -67,163 +67,66 @@
                                     @enderror
                                 </div>
                             </div>
-                            {{--                            <h6 class="heading-small text-muted mb-4">{{ __('When to send invitations') }}</h6>--}}
+                            @php
+                            $num = count($tmp_array) / 6;
+                            $i = 0;
+                            for($x=0; $x < $num; $x++) {
+                                 $calc_var = 'calc_var_' . strval($i) ;
+                                 $logic_var = 'logic_' . strval($i) ;
+                                 $sms_timer_var = 'sms_timer_' . strval($i) ;
+                                 $num_days_var = 'num_days_' . strval($i) ;
+                                 $recurrence_var = 'recurrence_' . strval($i) ;
+                                 $message_var = 'message_' . strval($i) ;
 
-                            {{--                            <div class="pl-lg-4">--}}
-                            {{--                                <div class="form-group">--}}
-                            {{--                                <div class="form-group{{ $errors->has('rc-var') ? ' has-danger' : '' }}">--}}
-                            {{--                                    <label class="form-control-label" for="input-name">REDCap Variable to Calculate from</label>--}}
-                            {{--                                    <input type="text" name="rc-var" id="input-rc-var" class="form-control" placeholder="{{ __('Please type variable as in REDCap including event ex: [baseline_arm_1][var_name]') }}" value="{{ old('rc-var') }}" required autofocus>--}}
+                                 @endphp
+                            <h6 class="heading-small text-muted mb-4">Invitations</h6>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="{{$calc_var}}">REDCap Variable to Calculate from</label>
+                                    <input type="text" name="{{$calc_var}}" id="{{$calc_var}}" class="form-control" value="{{$tmp_array[$calc_var]}}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="{{$logic_var}}">Logic (optional)</label>
+                                    <input type="text" name="{{$logic_var}}" id="{{$logic_var}}" class="form-control" value="{{$tmp_array[$logic_var]}}" required autofocus>
+                                </div>
+                            </div>
 
-                            {{--                                    @error('rc-var')--}}
-                            {{--                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>--}}
-                            {{--                                    @enderror--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-                            {{--                            <div class="pl-lg-4">--}}
-                            {{--                                <div class="form-group">--}}
-                            {{--                                <div class="form-group{{ $errors->has('num-days') ? ' has-danger' : '' }}">--}}
-                            {{--                                    <label class="form-control-label" for="input-timer">How many days to trigger</label>--}}
-                            {{--                                    <input type="text" name="num-days" id="input-num-days" class="form-control" placeholder="{{ __('#') }}" value="{{ old('num-days') }}" required autofocus>--}}
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="{{$sms_timer_var}}">Send SMS after # days</label>
+                                    <input type="text" name="{{$sms_timer_var}}" id="{{$sms_timer_var}}" value="{{$tmp_array[$sms_timer_var]}}" class="form-control" required autofocus>
+                                </div>
+                            </div>
 
-                            {{--                                    @error('num-days')--}}
-                            {{--                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>--}}
-                            {{--                                    @enderror--}}
-                            {{--                                </div>--}}
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="{{$num_days_var}}">Send every # days:</label>
+                                    <input type="text" name="{{$num_days_var}}" id="{{$num_days_var}}" value="{{$tmp_array[$num_days_var]}}"  class="form-control" required autofocus>
+                                </div>
+                            </div>
 
-                            {{--                            </div>--}}
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="{{$recurrence_var}}">Number of recurrences:</label>
+                                    <input type="text" name="{{$recurrence_var}}" id="{{$recurrence_var}}" value="{{$tmp_array[$recurrence_var]}}" class="form-control" required autofocus>
+                                </div>
+                            </div>
 
-                            {{--                            <div class="pl-lg-4">--}}
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="{{$message_var}}">SMS Message text:</label>
+                                    <textarea type="text" name="{{$message_var}}" id="{{$message_var}}" value="{{$tmp_array[$message_var]}}"  class="form-control" required autofocus></textarea type="text">
+                                </div>
+                            </div>
 
-                            {{--                                <div class="form-group{{ $errors->has('invitation-group') ? ' has-danger' : '' }}">--}}
+                            @php
 
+                            $i++;
+ }
+@endphp
 
-                            {{--                                    <label class="form-control-label" for="input-role">Trigger</label>--}}
-                            {{--                                    <div class = "container">--}}
-                            {{--                                        <div class="row">--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <div class="form-check">--}}
-                            {{--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
-                            {{--                                                    <label class="form-check-label" for="flexCheckDefault">--}}
-                            {{--                                                        Send every--}}
-                            {{--                                                    </label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-4">--}}
-                            {{--                                                <select name="#" id="#" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Category') }}" required>--}}
-                            {{--                                                    <option value="">--Select Day--</option>--}}
-
-                            {{--                                                    <option value="imd_score" >Day</option>--}}
-                            {{--                                                    <option value="imd_score" >Weekday</option>--}}
-                            {{--                                                    <option value="imd_score" >Weekend Day</option>--}}
-                            {{--                                                    <option value="imd_score" >Sunday</option>--}}
-                            {{--                                                    <option value="imd_score" >Monday</option>--}}
-                            {{--                                                    <option value="imd_score" >Tuesday</option>--}}
-                            {{--                                                    <option value="imd_score" >Wednesday</option>--}}
-                            {{--                                                    <option value="imd_score" >Thursday</option>--}}
-                            {{--                                                    <option value="imd_score" >Friday</option>--}}
-                            {{--                                                    <option value="imd_score" >Saturday</option>--}}
-
-                            {{--                                                </select>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <label for="example-time-input" class="form-control-label">At time</label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <label for="example-time-input" class="form-control-label">Time</label>--}}
-                            {{--                                                    <input class="form-control" type="time" value="10:30:00" id="example-time-input">--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-                            {{--                                        <div class="row">--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <div class="form-check">--}}
-                            {{--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
-                            {{--                                                    <label class="form-check-label" for="flexCheckDefault">--}}
-                            {{--                                                        Send every--}}
-                            {{--                                                    </label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <input type="text" name="days" id="input-days" class="form-control{{ $errors->has('days') ? ' is-invalid' : '' }}" placeholder="{{ __('7') }}" value="#" required autofocus>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <label for="example-time-input" class="form-control-label"> Days</label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <input type="text" name="hours" id="input-hours" class="form-control{{ $errors->has('hours') ? ' is-invalid' : '' }}" placeholder="{{ __('0') }}" value="#" required autofocus>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <label for="example-time-input" class="form-control-label"> Hours</label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <input type="text" name="mins" id="#" class="form-control{{ $errors->has('mins') ? ' is-invalid' : '' }}" placeholder="{{ __('0') }}" value="#" required autofocus>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col-2">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <label for="example-time-input" class="form-control-label"> Minutes</label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-                            {{--                                        <div class="row">--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <div class="form-check">--}}
-                            {{--                                                    <input class="form-check-input" type="checkbox" value="" id="exact-d-t-text">--}}
-                            {{--                                                    <label class="form-check-label" for="exact-d-t-text">--}}
-                            {{--                                                        Send at exact date/time:--}}
-                            {{--                                                    </label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <div class="form-group">--}}
-                            {{--                                                    <label for="exact-d-t" class="form-control-label">Datetime</label>--}}
-                            {{--                                                    <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="exact-d-t">--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-                            {{--                                        <div class="row">--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <div class="form-check">--}}
-                            {{--                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">--}}
-                            {{--                                                    <label class="form-check-label" for="flexCheckDefault">--}}
-                            {{--                                                        Recurrence:--}}
-                            {{--                                                    </label>--}}
-                            {{--                                                </div>--}}
-                            {{--                                            </div>--}}
-                            {{--                                            <div class="col">--}}
-                            {{--                                                <select name="recurrence" id="input-recurrence" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" placeholder="{{ __('Category') }}" required>--}}
-                            {{--                                                    <option value="">--Select Recurrence--</option>--}}
-
-                            {{--                                                    <option value="imd_score" >Send only once</option>--}}
-                            {{--                                                    <option value="imd_score" >Send up to 2 times</option>--}}
-                            {{--                                                    <option value="imd_score" >Send up to 3 times</option>--}}
-                            {{--                                                    <option value="imd_score" >Send up to 4 times</option>--}}
-                            {{--                                                    <option value="imd_score" >Send up to 5 times</option>--}}
-
-                            {{--                                                </select>--}}
-                            {{--                                            </div>--}}
-                            {{--                                        </div>--}}
-
-                            {{--                                        <button type="button" class="btn btn-primary">Add another trigger</button>--}}
-
-                            {{--                                    </div>--}}
-                            {{--                                    @include('alerts.feedback', ['field' => 'category_id'])--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-
-
-                            {{--                                <button type="button" class="btn btn-success">Save</button>--}}
                             <button type="submit" class="btn btn-success mt-4" onclick="confirm('{{ __("Are you sure you want to Update this item?") }}') ? this.parentElement.submit() : ''">Update</button>
                         </form>
 
@@ -235,22 +138,6 @@
                             </button>
                         </form>
                     </div>
-
-{{--                    <div class="row">--}}
-{{--                        <div class="col-xl-12 order-xl-1">--}}
-{{--                        <form method ="post" action="/manage/{{$study->id}}" method="post">--}}
-{{--                            @csrf--}}
-{{--                            @method('DELETE')--}}
-{{--                            <button type="button" class="btn btn-danger" onclick="confirm('{{ __("Are you sure you want to delete this item?") }}') ? this.parentElement.submit() : ''">--}}
-{{--                                {{ __('Delete') }}--}}
-{{--                            </button>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                    </div>--}}
-
-
-
-
                 </div>
             </div>
         </div>
@@ -266,6 +153,7 @@
 @endpush
 
 @push('js')
+
     <script src="{{ asset('argon') }}/vendor/select2/dist/js/select2.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/quill/dist/quill.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>

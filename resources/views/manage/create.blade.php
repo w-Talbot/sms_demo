@@ -104,6 +104,13 @@
                                     </div>
                                 </div>
 
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="message_0">SMS Message text:</label>
+                                        <textarea type="text" name="message_0" id="message_0" class="form-control" required autofocus></textarea>
+                                    </div>
+                                </div>
+
                             <div id="newinput"></div>
                             <button type="button" id="rowAdder" class="btn btn-primary">Add another invitation</button>
 
@@ -169,6 +176,12 @@
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="recurrence_' + sfx + '">Number of recurrences:</label>' +
                 '<input type="text" name="recurrence_' + sfx + '" id="recurrence_' + sfx + '" class="form-control" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="message_' + sfx + '">SMS Message text:</label>' +
+                '<textarea type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" required autofocus></textarea>' +
                 '</div></div>'+
 
                 '<div class="input-group m-3">' +
