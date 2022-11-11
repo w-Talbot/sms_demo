@@ -68,6 +68,7 @@
                                 </div>
                             </div>
                             @php
+                            // note:: $num is divided by the number of inputs for lopping purposes, if you add an input (ex: logic, message, etc), you need to add to the number it is divided by
                             $num = count($tmp_array) / 6;
                             $i = 0;
                             for($x=0; $x < $num; $x++) {
@@ -117,7 +118,7 @@
                             <div class="pl-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="{{$message_var}}">SMS Message text:</label>
-                                    <textarea type="text" name="{{$message_var}}" id="{{$message_var}}" value="{{$tmp_array[$message_var]}}"  class="form-control" required autofocus></textarea type="text">
+                                    <input type="text" name="{{$message_var}}" id="{{$message_var}}" value="{{$tmp_array[$message_var]}}"  class="form-control" required autofocus>
                                 </div>
                             </div>
 

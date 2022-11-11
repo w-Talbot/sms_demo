@@ -28,26 +28,27 @@ class StudyController extends Controller
         $tmp_array = array();
         foreach ($data as $key => $value){
             $tmp_array[$key] = $value;
-            $stop = 0;
         }
-
-//        $tmp_array = array();
-//        $i = 0;
-//        foreach ($tmp as $key){
-//            $test = $key;
-////           $tmp_array[$tmp[$i]] = $key;
-//            $stop = 0;
-//        }
-        $stop =0;
         return view('manage.edit', ['study' => $study , 'tmp_array' => $tmp_array ]);
     }
 
     //Update listing
     public function update(Request $request, Study $study){
+
+        $inv_array = array();
+        foreach($request->except('_token') as $key => $value){
+            if(preg_match(' /[0-9]/', substr($key, -1, 1))){
+                $inv_array[$key] = $request->input($key);
+            }
+        }
+
         $formFields = $request->validate([
             'study_name' => 'required',
             'api' => 'required',
             'url' => 'required']);
+
+        $formFields['sms_invitations'] = json_encode($inv_array);
+
 
         $study->update($formFields);
 
@@ -57,22 +58,12 @@ class StudyController extends Controller
     //Store
         public function store(Request $request){
 
-        //original works
-//        $inv_array = array();
-//        foreach($request->except('_token') as $key => $value){
-//            if(preg_match(' /[0-9]/', substr($key, -1, 1))){
-//                $inv_array[$key] = $request->input($key);
-//            }
-//        }
-
-
-            $inv_array = array();
-            foreach($request->except('_token') as $key => $value){
-                if(preg_match(' /[0-9]/', substr($key, -1, 1))){
-                    $inv_array[$key] = $request->input($key);
-                }
+        $inv_array = array();
+        foreach($request->except('_token') as $key => $value){
+            if(preg_match(' /[0-9]/', substr($key, -1, 1))){
+                $inv_array[$key] = $request->input($key);
             }
-
+        }
 
             $formFields = $request->validate([
                 'study_name' => 'required',

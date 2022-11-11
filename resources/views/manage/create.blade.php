@@ -107,7 +107,7 @@
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="message_0">SMS Message text:</label>
-                                        <textarea type="text" name="message_0" id="message_0" class="form-control" required autofocus></textarea>
+                                        <input type="text" name="message_0" id="message_0" class="form-control" required autofocus>
                                     </div>
                                 </div>
 
@@ -181,7 +181,7 @@
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="message_' + sfx + '">SMS Message text:</label>' +
-                '<textarea type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" required autofocus></textarea>' +
+                '<input type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="input-group m-3">' +
