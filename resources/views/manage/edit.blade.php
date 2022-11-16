@@ -67,13 +67,24 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    {{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
+                                    <label class="form-control-label" for="url">Phone Variable:</label>
+                                    <input type="text" name="phone_variable" id="phone_variable" class="form-control"  value="{{$study->phone_variable}}" required autofocus>
+                                    @error('phone_variable')phone_variable
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
                             @php
                             // note:: $num is divided by the number of inputs for lopping purposes, if you add an input (ex: logic, message, etc), you need to add to the number it is divided by
-                            $num = count($tmp_array) / 6;
+                            $num = count($tmp_array) / 7;
                             $i = 0;
                             for($x=0; $x < $num; $x++) {
                                  $calc_var = 'calc_var_' . strval($i) ;
-                                 $logic_var = 'logic_' . strval($i) ;
+                                 $lrc_form_a_var = 'rc_form_a_' . strval($i) ;
+                                 $rc_form_b_var = 'rc_form_b_' . strval($i) ;
                                  $sms_timer_var = 'sms_timer_' . strval($i) ;
                                  $num_days_var = 'num_days_' . strval($i) ;
                                  $recurrence_var = 'recurrence_' . strval($i) ;
@@ -83,14 +94,22 @@
                             <h6 class="heading-small text-muted mb-4">Invitations</h6>
                             <div class="pl-lg-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="{{$calc_var}}">REDCap Variable to Calculate from</label>
+                                    <label class="form-control-label" for="{{$calc_var}}">REDCap Date Variable to Calculate from</label>
                                     <input type="text" name="{{$calc_var}}" id="{{$calc_var}}" class="form-control" value="{{$tmp_array[$calc_var]}}" required autofocus>
                                 </div>
                             </div>
-                            <div class="pl-lg-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="{{$logic_var}}">Logic (optional)</label>
-                                    <input type="text" name="{{$logic_var}}" id="{{$logic_var}}" class="form-control" value="{{$tmp_array[$logic_var]}}" required autofocus>
+                            <div class="row pl-lg-3">
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="{{$lrc_form_a_var}}">Form Complete EVENT</label>
+                                        <input type="text" name="{{$lrc_form_a_var}}" id="{{$lrc_form_a_var}}" class="form-control" value="{{$tmp_array[$lrc_form_a_var]}}" required autofocus>
+                                    </div>
+                                </div>
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="{{$rc_form_b_var}}">Form Complete VARIABLE</label>
+                                        <input type="text" name="{{$rc_form_b_var}}" id="{{$rc_form_b_var}}" class="form-control" value="{{$tmp_array[$rc_form_b_var]}}" required autofocus>
+                                    </div>
                                 </div>
                             </div>
 

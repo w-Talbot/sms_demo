@@ -189,7 +189,7 @@
 
 {{--                '<div class="pl-lg-4">' +--}}
 {{--                '<div class="form-group">' +--}}
-{{--                '<label class="form-control-label" for="input-logic">Logic (optional)</label>' +--}}
+{{--                '<label class="form-control-label" for="input-logic">Logic </label>' +--}}
 {{--                '<input type="text" name="days" id="input-num-days" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>' +--}}
 {{--                '</div></div>'+--}}
 

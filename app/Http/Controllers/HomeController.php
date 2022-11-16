@@ -17,6 +17,8 @@
 */
 namespace App\Http\Controllers;
 
+use App\Study;
+
 class HomeController extends Controller
 {
     /**
@@ -36,6 +38,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard');
+//        return view('pages.dashboard');
+        return view('pages.dashboard',[
+            'studies' => Study::all()
+        ]);
+
+
     }
 }

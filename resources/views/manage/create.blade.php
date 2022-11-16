@@ -61,8 +61,18 @@
                                 <div class="form-group">
 {{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
                                     <label class="form-control-label" for="url">Study URL:</label>
-                                    <input type="text" name="url" id="url" class="form-control" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/') }}" value="{{ old('url') }}" required autofocus>
-                                    @error('study_name')
+                                    <input type="text" name="url" id="url" class="form-control" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/demo/api') }}" value="{{ old('url') }}" required autofocus>
+                                    @error('url')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    {{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
+                                    <label class="form-control-label" for="url">Phone Variable:</label>
+                                    <input type="text" name="phone_variable" id="phone_variable" class="form-control" placeholder="{{ __('[baseline_arm_1][bl_telephone]') }}" value="{{ old('phone_variable') }}" required autofocus>
+                                    @error('phone_variable')
                                     <p class="text-red-500 text-cs mt-1">{{$message}}</p>
                                     @enderror
                                 </div>
@@ -72,16 +82,25 @@
                                 <h6 class="heading-small text-muted mb-4">Invitations</h6>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="calc_var_0">REDCap Variable to Calculate from</label>
+                                        <label class="form-control-label" for="calc_var_0">REDCap Date Variable to Calculate from</label>
                                         <input type="text" name="calc_var_0" id="calc_var_0" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>
                                     </div>
                                 </div>
-                                <div class="pl-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="logic_0">Logic (optional)</label>
-                                        <input type="text" name="logic_0" id="logic_0" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>
+                                <div class="row pl-lg-3">
+                                    <div class="pl-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="rc_form_a_0">Form Complete EVENT</label>
+                                            <input type="text" name="rc_form_a_0" id="rc_form_a_0" class="form-control" placeholder="screening_arm_1">
+                                        </div>
+                                    </div>
+                                    <div class="pl-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="rc_form_b_0">Form Complete VARIABLE</label>
+                                            <input type="text" name="rc_form_b_0" id="rc_form_b_0" class="form-control" placeholder="screening_complete">
+                                        </div>
                                     </div>
                                 </div>
+
 
                                 <div class="pl-lg-4">
                                     <div class="form-group">
@@ -150,15 +169,23 @@
                 '<div id="addrow"><h6 class="heading-small text-muted mb-4">--Invitation--</h6>' +
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="calc_var_' + sfx + '">REDCap Variable to Calculate from</label>' +
+                '<label class="form-control-label" for="calc_var_' + sfx + '">REDCap Date Variable to Calculate from</label>' +
                 '<input type="text" name="calc_var_' + sfx + '" id="calc_var_' + sfx + '" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>' +
                 '</div></div>' +
 
+                '<div class="row pl-lg-3">'+
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="logic_' + sfx + '">Logic (optional)</label>' +
-                '<input type="text" name="logic_' + sfx + '" id="logic_' + sfx + '" class="form-control" placeholder="[baseline_arm_1][var_name] = 1" required autofocus>' +
+                '<label class="form-control-label" for="rc_form_a_' + sfx + '">Form Complete EVENT</label>' +
+                '<input type="text" name="rc_form_a_' + sfx + '" id="rc_form_a_' + sfx + '" class="form-control" placeholder="screening_arm_1" >' +
                 '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="rc_form_b_' + sfx + '">Form Complete VARIABLE</label>' +
+                '<input type="text" name="rc_form_b_' + sfx + '" id="rc_form_b_' + sfx + '" class="form-control" placeholder="screening_complete" >' +
+                '</div></div>'+
+                '</div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +

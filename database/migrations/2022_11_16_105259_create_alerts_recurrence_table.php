@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('studies', function (Blueprint $table) {
+        Schema::create('alerts_recurrence', function (Blueprint $table) {
             $table->id();
-            $table->string('study_name');
-            $table->string('api');
-            $table->string('url');
-            $table->string('phone_variable');
-            $table->json('sms_invitations')->nullable();
-            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('studies');
+        Schema::dropIfExists('alerts_recurrence');
     }
 };

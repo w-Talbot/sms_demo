@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\SMSLogic\PHCSMS;
 use App\Study;
 use Illuminate\Http\Request;
+use App\SMSLogic\PHPSMS;
 
 class StudyController extends Controller
 {
@@ -45,14 +47,18 @@ class StudyController extends Controller
         $formFields = $request->validate([
             'study_name' => 'required',
             'api' => 'required',
-            'url' => 'required']);
+            'url' => 'required',
+            'phone_variable' => 'required'
+        ]);
 
         $formFields['sms_invitations'] = json_encode($inv_array);
 
 
-        $study->update($formFields);
+        $helper = new PHCSMS();
+        $tabledata = $helper->checkForAlerts();
 
-        return back()->with('update-message', 'Study details have been successfully updated!');
+//        $study->update($formFields);
+//        return back()->with('update-message', 'Study details have been successfully updated!');
     }
 
     //Store
@@ -68,7 +74,9 @@ class StudyController extends Controller
             $formFields = $request->validate([
                 'study_name' => 'required',
                 'api' => 'required',
-                'url' => 'required']);
+                'url' => 'required',
+                'phone_variable' => 'required'
+                ]);
 
             $formFields['sms_invitations'] = json_encode($inv_array);
 
@@ -89,6 +97,7 @@ class StudyController extends Controller
             'study' => $study
         ]);
     }
+
 
 
 }

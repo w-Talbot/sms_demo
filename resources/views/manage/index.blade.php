@@ -70,7 +70,7 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Logo</th>
+{{--                                    <th scope="col">Logo</th>--}}
                                     <th scope="col" class="sort" data-sort="name">Study</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -78,7 +78,7 @@
                                 <tbody class="list">
                                 @foreach ($studies as $study)
                                     <tr>
-                                        <td>img here</td>
+{{--                                        <td>img here</td>--}}
                                         <td>{{ $study['study_name'] }}</td>
                                         {{--        <td>{{ $study->category->name }}</td>--}}
                                         {{--        <td>--}}
