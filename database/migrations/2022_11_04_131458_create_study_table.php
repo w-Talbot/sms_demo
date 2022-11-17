@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('study_name');
             $table->string('api');
             $table->string('url');
+            $table->string('phone_event');
             $table->string('phone_variable');
             $table->json('sms_invitations')->nullable();
             $table->string('logo')->nullable();

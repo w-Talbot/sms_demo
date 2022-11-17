@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call([RolesTableSeeder::class, UsersTableSeeder::class]);
         $this->call([TagsTableSeeder::class, CategoriesTableSeeder::class, ItemsTableSeeder::class]);
 
-        Study::factory(10)->create();
+        Study::factory(3)->create();
 //
 //        Study::create([
 //            'id' => 2,

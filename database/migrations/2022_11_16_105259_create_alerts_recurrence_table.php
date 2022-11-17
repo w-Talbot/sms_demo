@@ -13,8 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('alerts_recurrence', function (Blueprint $table) {
-            $table->id();
+        Schema::create('alerts', function (Blueprint $table) {
+            $table->id('alert_id');
+            $table->string('project_id');
+            $table->dateTime('first_sent');
+            $table->dateTime('last_send');
+            $table->string('times_sent');
+            $table->dateTime('first_send_time');
+            $table->dateTime('last_send_time');
             $table->timestamps();
         });
     }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\SMSLogic\PHCSMS;
+use App\SMSLogic\AlertRecurrenceLogic;
+
 use App\Study;
 use Illuminate\Http\Request;
-use App\SMSLogic\PHPSMS;
+
 
 class StudyController extends Controller
 {
@@ -48,17 +50,22 @@ class StudyController extends Controller
             'study_name' => 'required',
             'api' => 'required',
             'url' => 'required',
-            'phone_variable' => 'required'
+            'phone_event' => 'required',
+            'phone_variable' => 'required',
         ]);
 
         $formFields['sms_invitations'] = json_encode($inv_array);
 
 
-        $helper = new PHCSMS();
-        $tabledata = $helper->checkForAlerts();
 
-//        $study->update($formFields);
-//        return back()->with('update-message', 'Study details have been successfully updated!');
+        //This is for testing PHCSMS stuff:
+        $helper = new PHCSMS();
+        $tabledata = $helper->checkForNEWAlerts();
+
+
+// This is super important to the actual function of the site, and needs to be uncommented when no testing
+        $study->update($formFields);
+        return back()->with('update-message', 'Study details have been successfully updated!');
     }
 
     //Store
@@ -75,6 +82,7 @@ class StudyController extends Controller
                 'study_name' => 'required',
                 'api' => 'required',
                 'url' => 'required',
+                'phone_event' => 'required',
                 'phone_variable' => 'required'
                 ]);
 

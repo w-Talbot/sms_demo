@@ -67,23 +67,36 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="pl-lg-4">
-                                <div class="form-group">
-                                    {{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
-                                    <label class="form-control-label" for="url">Phone Variable:</label>
-                                    <input type="text" name="phone_variable" id="phone_variable" class="form-control" placeholder="{{ __('[baseline_arm_1][bl_telephone]') }}" value="{{ old('phone_variable') }}" required autofocus>
-                                    @error('phone_variable')
-                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
-                                    @enderror
+
+                                <div class="row pl-lg-3">
+                                    <div class="pl-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="phone_event">Phone EVENT</label>
+                                            <input type="text" name="phone_event" id="phone_event" class="form-control" placeholder="{{ __('baseline_arm_1') }}" value="{{ old('phone_event') }}" required autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="pl-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="phone_variable">Phone VARIABLE</label>
+                                            <input type="text" name="phone_variable" id="phone_variable" class="form-control" placeholder="{{ __('bl_telephone') }}" value="{{ old('phone_variable') }}" required autofocus>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 {{--                            <h6 class="heading-small text-muted mb-4">{{ __('When to send invitations') }}</h6>--}}
 
                                 <h6 class="heading-small text-muted mb-4">Invitations</h6>
-                                <div class="pl-lg-4">
-                                    <div class="form-group">
-                                        <label class="form-control-label" for="calc_var_0">REDCap Date Variable to Calculate from</label>
-                                        <input type="text" name="calc_var_0" id="calc_var_0" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>
+                                <div class="row pl-lg-3">
+                                    <div class="pl-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="calc_var_a_0">REDCap Date EVENT</label>
+                                            <input type="text" name="calc_var_a_0" id="calc_var_a_0" class="form-control" placeholder="baseline_arm_1" required autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="pl-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="calc_var_b_0">REDCap Date VARIABLE</label>
+                                            <input type="text" name="calc_var_b_0" id="calc_var_b_0" class="form-control" placeholder="var_name" required autofocus>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row pl-lg-3">
@@ -167,11 +180,19 @@
             newRowAdd =
 
                 '<div id="addrow"><h6 class="heading-small text-muted mb-4">--Invitation--</h6>' +
+                '<div class="row pl-lg-3">'+
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="calc_var_' + sfx + '">REDCap Date Variable to Calculate from</label>' +
-                '<input type="text" name="calc_var_' + sfx + '" id="calc_var_' + sfx + '" class="form-control" placeholder="[baseline_arm_1][var_name])" required autofocus>' +
+                '<label class="form-control-label" for="calc_var_a_' + sfx + '">REDCap Date EVENT</label>' +
+                '<input type="text" name="calc_var_a_' + sfx + '" id="calc_var_a_' + sfx + '" class="form-control" placeholder="baseline_arm_1" required autofocus>' +
                 '</div></div>' +
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="calc_var_b_' + sfx + '">REDCap Date VaARIABLE</label>' +
+                '<input type="text" name="calc_var_b_' + sfx + '" id="calc_var_b_' + sfx + '" class="form-control" placeholder="var_name" required autofocus>' +
+                '</div></div>' +
+                '</div>' +
 
                 '<div class="row pl-lg-3">'+
                 '<div class="pl-lg-4">' +

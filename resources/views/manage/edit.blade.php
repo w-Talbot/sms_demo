@@ -67,22 +67,30 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="pl-lg-4">
-                                <div class="form-group">
-                                    {{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
-                                    <label class="form-control-label" for="url">Phone Variable:</label>
-                                    <input type="text" name="phone_variable" id="phone_variable" class="form-control"  value="{{$study->phone_variable}}" required autofocus>
-                                    @error('phone_variable')phone_variable
-                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
-                                    @enderror
+
+                            <div class="row pl-lg-3">
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="phone_event">Phone EVENT</label>
+                                        <input type="text" name="phone_event" id="phone_event" class="form-control"  value="{{$study->phone_event}}" required autofocus>
+                                    </div>
+                                </div>
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="phone_variable">Phone VARIABLE</label>
+                                        <input type="text" name="phone_variable" id="phone_variable" class="form-control"  value="{{$study->phone_variable}}" required autofocus>
+                                    </div>
                                 </div>
                             </div>
+
+
                             @php
                             // note:: $num is divided by the number of inputs for lopping purposes, if you add an input (ex: logic, message, etc), you need to add to the number it is divided by
-                            $num = count($tmp_array) / 7;
+                            $num = count($tmp_array) / 8;
                             $i = 0;
                             for($x=0; $x < $num; $x++) {
-                                 $calc_var = 'calc_var_' . strval($i) ;
+                                 $calc_var_a = 'calc_var_a_' . strval($i) ;
+                                 $calc_var_b = 'calc_var_b_' . strval($i) ;
                                  $lrc_form_a_var = 'rc_form_a_' . strval($i) ;
                                  $rc_form_b_var = 'rc_form_b_' . strval($i) ;
                                  $sms_timer_var = 'sms_timer_' . strval($i) ;
@@ -92,10 +100,18 @@
 
                                  @endphp
                             <h6 class="heading-small text-muted mb-4">Invitations</h6>
-                            <div class="pl-lg-4">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="{{$calc_var}}">REDCap Date Variable to Calculate from</label>
-                                    <input type="text" name="{{$calc_var}}" id="{{$calc_var}}" class="form-control" value="{{$tmp_array[$calc_var]}}" required autofocus>
+                            <div class="row pl-lg-3">
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="{{$calc_var_a}}">REDCap Date EVENT</label>
+                                        <input type="text" name="{{$calc_var_a}}" id="{{$calc_var_a}}" class="form-control" value="{{$tmp_array[$calc_var_a]}}" required autofocus>
+                                    </div>
+                                </div>
+                                <div class="pl-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="{{$calc_var_b}}">REDCap Date VARIABLE</label>
+                                        <input type="text" name="{{$calc_var_b}}" id="{{$calc_var_b}}" class="form-control" value="{{$tmp_array[$calc_var_b]}}" required autofocus>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row pl-lg-3">
