@@ -2,6 +2,7 @@
 
 namespace App\SMSLogic;
 
+use IU\PHPCap\RedCapProject;
 use App\StudyConfiguration;
 use Illuminate\Support\Facades\DB;
 use App\Alert;
@@ -9,25 +10,46 @@ use App\Alert;
 class AlertRecurrenceLogic {
 
 
-    public function getAllRecurringSMS(){
-        $tmpData = DB::select('SELECT * FROM alerts_recurrence');
-        return $tmpData;
-    }
-
-    //create recurring alert
-    public function createNewAlert($studyid, $first_sent){
+    //Create recurring alert
+    public function createNewAlert($studyid, $record_id_var, $record_id){
 
         $today = new \DateTime('today');
-        $array = [
-            'project_id' => $studyid,
-            'first_sent' => $first_sent,
-            'last_send' => $today,
-            'times_sent' =>'99',
-            'first_send_time' => $today,
-            'last_send_time' => $today
+
+        $alertArray = [
+            'study_id' => $studyid,
+            'record_id_variable_name' => $record_id_var,
+            'record_id' => $record_id,
+            'first_sent' => $today,
+            'last_sent' => $today,
+            'times_sent' => 0
+
         ];
 
-        Alert::create($array);
+        Alert::create($alertArray);
+    }
+
+    public function checkForRecurringAlerts(){
+
+        $tabledata = $this->getAllRecurringSMS();
+
+        if($tabledata )
+        $stop = 0;
+        /***
+         * get todays date
+         * access stored studies at specifed study_id
+         * need first sent
+         * form complete staus
+         * how manys days to count from first
+         * how many repeats are there, how manyt time has it repeated
+         * who to send the txt to
+         * what is the message
+         */
+
+    }
+
+    public function getAllRecurringSMS(){
+        $tmpData = DB::select('SELECT * FROM alerts');
+        return $tmpData;
     }
 
     public function getStudyAlertInfo($studyid){

@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('alerts', function (Blueprint $table) {
             $table->id('alert_id');
-            $table->string('project_id');
+            $table->string('study_id');
+            $table->string('record_id_variable_name');
+            $table->string('record_id');
             $table->dateTime('first_sent');
-            $table->dateTime('last_send');
+            $table->dateTime('last_sent');
             $table->string('times_sent');
-            $table->dateTime('first_send_time');
-            $table->dateTime('last_send_time');
             $table->timestamps();
         });
     }

@@ -156,8 +156,9 @@ public function checkForNEWAlerts(){
                     }
 
                     try{
-//                    Check to see if form has been completed, if yes do nothing, if no check the date diff
+//                    Check to see if form has been completed, if yes do nothing, if no check the date diff using dateEqualsSMSTRigger function
                             if($form_complete == 2){
+                                //Form is complete do nothing
                                 continue;
                             }else {
                                 $time_elapsed = $details[$sms_timer_var];
@@ -167,14 +168,15 @@ public function checkForNEWAlerts(){
                                     $txt = $details[$message_var];
                                     $this->sendSMS($phone_number, $txt);
 
-//                                $recurrence = $details[$recurrence_var];
-//                                if($recurrence > 0){
-//                                    $first_SMS = new \DateTime('today');
-//                                    $studyid = $study->id;
-//                                    $alert = new AlertRecurrenceLogic();
-//                                    $alert->createNewAlert($studyid, $first_SMS );
-//                                    continue;
-//                                }
+                                    //Create a recurring alert if specified:
+                                    $recurrence = $details[$recurrence_var];
+                                    if($recurrence > 0){
+                                        $studyid = $study->id;
+
+                                        $alert = new AlertRecurrenceLogic();
+                                        $alert->createNewAlert($study->id, $record_id_var, $record_id );
+                                        continue;
+                                    }
                                     continue;
 
                                 }else{

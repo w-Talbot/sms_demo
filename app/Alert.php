@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Alert extends Model
 {
     use HasFactory;
-    protected $fillable = ['project_id', 'first_sent', 'last_send', 'times_sent', 'first_send_time','last_send_time'];
+
+    protected $fillable = ['study_id', 'record_id_variable_name', 'record_id', 'first_sent', 'last_sent', 'times_sent'];
 }
