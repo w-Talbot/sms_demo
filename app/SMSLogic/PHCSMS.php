@@ -85,6 +85,8 @@ public function checkForNEWAlerts(){
         }
 
         //Store the current projects REDCap API details to check it for any records that should send SMS:
+
+
         $apiToken  = $tmp_array['api'];
         $apiUrl = $tmp_array['url'];
 
@@ -92,8 +94,6 @@ public function checkForNEWAlerts(){
         $phone_event = $tmp_array['phone_event'];
         $phone_number = '';
 
-//            $form_complete;
-//            $date_to_calc = '';
 
         $details_to_check = json_decode($tmp_array['sms_invitations']);
         $details = array();
@@ -108,66 +108,219 @@ public function checkForNEWAlerts(){
         $project = new RedCapProject($apiUrl, $apiToken);
         $projectInfo = $project->exportProjectInfo();
         $records = $project->exportRecords();
+        $record_id_var = array_key_first($records[0]); //this may change, but is usually 'record_id'
 
 
+
+        $record_id = '';
 
             //Loop through all records in project to see if they meet the criteria (stored in $details) for sending SMS:
         foreach ($records as $record) {
 
-                //Get Phone number
+            if($record[$record_id_var] == $record_id){
+                //SAME record, do nothing
+            }else{
+                //NEW Record check all Invitations:
+
+                $record_id = $record[$record_id_var]; //Update to working record id
+
+                //Get phone number
+                foreach($records as $tmp){
+                    if($record[$record_id_var] == $record_id){
+                        if($tmp['redcap_event_name'] === $phone_event){
+                            $phone_number = $tmp[$phone_var];
+                            break;
+                        }
+                    }
+                }
+
+
+                //While looping through each record, need to check against stored details
+                $num = count($details) / 8;
+                $i = 0;
+                for($x=0; $x < $num; $x++) {
+                    $calc_event = 'calc_var_a_' . strval($i);
+                    $calc_var = 'calc_var_b_' . strval($i);
+                    $rc_form_a = 'rc_form_a_' . strval($i);
+                    $rc_form_b = 'rc_form_b_' . strval($i);
+                    $sms_timer_var = 'sms_timer_' . strval($i);
+                    $num_days_var = 'num_days_' . strval($i);
+                    $recurrence_var = 'recurrence_' . strval($i);
+                    $message_var = 'message_' . strval($i);
+                    $i++;
+
+
+//                    //Get phone number :::change to get invite stuff , same lopp seprate loops?
+//                    foreach($records as $tmp){
+//                        if($record[$record_id_var] == $record_id){
+//                            if($tmp['redcap_event_name'] === $phone_event){
+//                                $phone_number = $tmp[$phone_var];
+//                                break;
+//                            }
+//                        }
+//                    }
+
+                    if($record[$details[$rc_form_b]] != ''){
+                        $form_complete = $record[$details[$rc_form_b]];
+                    }
+                    if($record[$details[$calc_var]] != ''){
+                        $date_to_calc = $record[$details[$calc_var]];
+                    }
+                    $invitation_event = $details[$rc_form_a];
+                    $variable = $details[$rc_form_b];
+
+                    $stop = 0;
+
+                    try{
+                        if($record['redcap_event_name'] == $invitation_event){
+//                    check to see if form has been completed, if yes do nothing, if no check the date diff
+
+                            if($form_complete == 2){
+                                continue;
+                            }else {
+                                $time_elapsed = $details[$sms_timer_var];
+//                                if($this->dateEqualsSMSTrigger($record[$date], $time_elapsed)){
+                                if($this->dateEqualsSMSTrigger($date_to_calc, $time_elapsed)){
+                                    $stop = 0;
+                                    $txt = $details[$message_var];
+                                    $this->sendSMS($phone_number, $txt);
+
+//                                $recurrence = $details[$recurrence_var];
+//                                if($recurrence > 0){
+//                                    $first_SMS = new \DateTime('today');
+//                                    $studyid = $study->id;
+//                                    $alert = new AlertRecurrenceLogic();
+//                                    $alert->createNewAlert($studyid, $first_SMS );
+//                                    continue;
+//                                }
+                                    continue;
+
+                                }else{
+                                    continue;
+                                }
+                            }
+                        }
+                    }catch ( \Exception $e) {
+                        echo 'You have run into an error, please return to the Edit and make sure all variables are correctly input';
+                        //Should log error
+
+                    }
+
+                }
+            }
+
+
+            }
+        }
+
+    return $tabledata;
+}
+
+public function checkForRECURRINGAlerts(){
+
+
+
+}
+
+
+
+    public function ORIGcheckForNEWAlerts(){
+
+        $tabledata = $this->getAllStudyData();
+
+        //Loop through all studies in database:
+        foreach($tabledata as $study){
+
+            //Turn the data into a usable format (from STD::Class to an Array) as $tmp_array
+            $data = $study;
+            $tmp_array = array();
+            foreach ($data as $key => $value){
+                $tmp_array[$key] = $value;
+            }
+
+            //Store the current projects REDCap API details to check it for any records that should send SMS:
+
+
+            $apiToken  = $tmp_array['api'];
+            $apiUrl = $tmp_array['url'];
+
+            $phone_var = $tmp_array['phone_variable'];
+            $phone_event = $tmp_array['phone_event'];
+            $phone_number = '';
+
+
+            $details_to_check = json_decode($tmp_array['sms_invitations']);
+            $details = array();
+
+            //Store the specific invitation criteria in an array to check
+            foreach ($details_to_check  as $key => $value){
+                $details[$key] = $value;
+            }
+
+
+            //Get all data from REDcap project, stored in $projects and $records
+            $project = new RedCapProject($apiUrl, $apiToken);
+            $projectInfo = $project->exportProjectInfo();
+            $records = $project->exportRecords();
+            $record_id_var = array_key_first($records[0]); //this may change, but is usually 'record_id'
+
+            //Get First Phone number
             foreach($records as $tmp){
-                if($record['redcap_event_name'] === $phone_event){
+                if($tmp['redcap_event_name'] === $phone_event){
                     $phone_number = $tmp[$phone_var];
                     break;
                 }
             }
 
+            $record_id = '';
+
+            //Loop through all records in project to see if they meet the criteria (stored in $details) for sending SMS:
+            foreach ($records as $record) {
+
+                if($record[$record_id_var] == $record_id){
+                    //do nothing
+                }else{
+                    $record_id = $record[$record_id_var];
+                }
+
+
                 //While looping through each record, need to check against stored details
-            $num = count($details) / 8;
-            $i = 0;
+                $num = count($details) / 8;
+                $i = 0;
 
-            for($x=0; $x < $num; $x++) {
-                $calc_event = 'calc_var_a_' . strval($i);
-                $calc_var = 'calc_var_b_' . strval($i);
-                $rc_form_a = 'rc_form_a_' . strval($i);
-                $rc_form_b = 'rc_form_b_' . strval($i);
-                $sms_timer_var = 'sms_timer_' . strval($i);
-                $num_days_var = 'num_days_' . strval($i);
-                $recurrence_var = 'recurrence_' . strval($i);
-                $message_var = 'message_' . strval($i);
-                $i++;
+                for($x=0; $x < $num; $x++) {
+                    $calc_event = 'calc_var_a_' . strval($i);
+                    $calc_var = 'calc_var_b_' . strval($i);
+                    $rc_form_a = 'rc_form_a_' . strval($i);
+                    $rc_form_b = 'rc_form_b_' . strval($i);
+                    $sms_timer_var = 'sms_timer_' . strval($i);
+                    $num_days_var = 'num_days_' . strval($i);
+                    $recurrence_var = 'recurrence_' . strval($i);
+                    $message_var = 'message_' . strval($i);
+                    $i++;
 
 
-                    //Get REDCap DATE:
-                foreach($records as $tmp){
-                    if($tmp['redcap_event_name'] === $details[$calc_event]){
-                        $date_to_calc = $tmp[$details[$calc_var]];
-                        break;
+
+                    if($record[$phone_var] != ''){
+                        $phone_number = $record[$phone_var];
                     }
-                }
-                    //Get REDCap FORM:
-                foreach($records as $tmp){
-                    if($tmp['redcap_event_name'] === $details[$rc_form_a]){
-                        $form_complete = $tmp[$details[$rc_form_b]];
-                        break;
+
+                    if($record[$details[$rc_form_b]] != ''){
+                        $form_complete = $record[$details[$rc_form_b]];
                     }
-                }
+                    if($record[$details[$calc_var]] != ''){
+                        $date_to_calc = $record[$details[$calc_var]];
+                    }
+                    $invitation_event = $details[$rc_form_a];
+                    $variable = $details[$rc_form_b];
 
-                $event = $details[$rc_form_a];
-                $variable = $details[$rc_form_b];
-
-
-                    //TEST VARS BELOW:
-                    $test1 = $phone_number;
-                    $test2 = $form_complete;
-                    $test3 = $date_to_calc;
                     $stop =0;
 
                     try{
-                        if($record['redcap_event_name'] == $event){
+                        if($record['redcap_event_name'] == $invitation_event){
 //                    check to see if form has been completed, if yes do nothing, if no check the date diff
 
-                            if($record[$variable] == 2){
+                            if($form_complete == 2){
                                 continue;
                             }else {
                                 $time_elapsed = $details[$sms_timer_var];
@@ -202,15 +355,8 @@ public function checkForNEWAlerts(){
             }
         }
 
-    return $tabledata;
-}
-
-public function checkForRECURRINGAlerts(){
-
-
-
-}
-
+        return $tabledata;
+    }
 
 
 
