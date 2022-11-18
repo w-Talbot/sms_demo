@@ -88,28 +88,28 @@
                                 <div class="row pl-lg-3">
                                     <div class="pl-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="calc_var_a_0">REDCap Date EVENT</label>
-                                            <input type="text" name="calc_var_a_0" id="calc_var_a_0" class="form-control" placeholder="baseline_arm_1" required autofocus>
+                                            <label class="form-control-label" for="date_event_0">REDCap Date EVENT</label>
+                                            <input type="text" name="date_event_0" id="date_event_0" class="form-control" placeholder="baseline_arm_1" required autofocus>
                                         </div>
                                     </div>
                                     <div class="pl-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="calc_var_b_0">REDCap Date VARIABLE</label>
-                                            <input type="text" name="calc_var_b_0" id="calc_var_b_0" class="form-control" placeholder="var_name" required autofocus>
+                                            <label class="form-control-label" for="date_var_0">REDCap Date VARIABLE</label>
+                                            <input type="text" name="date_var_0" id="date_var_0" class="form-control" placeholder="var_name" required autofocus>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row pl-lg-3">
                                     <div class="pl-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="rc_form_a_0">Form Complete EVENT</label>
-                                            <input type="text" name="rc_form_a_0" id="rc_form_a_0" class="form-control" placeholder="screening_arm_1">
+                                            <label class="form-control-label" for="form_event_0">Form Complete EVENT</label>
+                                            <input type="text" name="form_event_0" id="form_event_0" class="form-control" placeholder="screening_arm_1">
                                         </div>
                                     </div>
                                     <div class="pl-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="rc_form_b_0">Form Complete VARIABLE</label>
-                                            <input type="text" name="rc_form_b_0" id="rc_form_b_0" class="form-control" placeholder="screening_complete">
+                                            <label class="form-control-label" for="form_var_0">Form Complete VARIABLE</label>
+                                            <input type="text" name="form_var_0" id="form_var_0" class="form-control" placeholder="screening_complete">
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +173,6 @@
     <script type="text/javascript">
 
         var sfx = 0;
-        var cv = "calc_var_" . sfx;
         $("#rowAdder").click(function () {
 
             sfx = sfx + 1;
@@ -183,28 +182,28 @@
                 '<div class="row pl-lg-3">'+
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="calc_var_a_' + sfx + '">REDCap Date EVENT</label>' +
-                '<input type="text" name="calc_var_a_' + sfx + '" id="calc_var_a_' + sfx + '" class="form-control" placeholder="baseline_arm_1" required autofocus>' +
+                '<label class="form-control-label" for="date_event_' + sfx + '">REDCap Date EVENT</label>' +
+                '<input type="text" name="date_event_' + sfx + '" id="date_event_' + sfx + '" class="form-control" placeholder="baseline_arm_1" required autofocus>' +
                 '</div></div>' +
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="calc_var_b_' + sfx + '">REDCap Date VaARIABLE</label>' +
-                '<input type="text" name="calc_var_b_' + sfx + '" id="calc_var_b_' + sfx + '" class="form-control" placeholder="var_name" required autofocus>' +
+                '<label class="form-control-label" for="date_var_' + sfx + '">REDCap Date VaARIABLE</label>' +
+                '<input type="text" name="date_var_' + sfx + '" id="date_var_' + sfx + '" class="form-control" placeholder="var_name" required autofocus>' +
                 '</div></div>' +
                 '</div>' +
 
                 '<div class="row pl-lg-3">'+
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="rc_form_a_' + sfx + '">Form Complete EVENT</label>' +
-                '<input type="text" name="rc_form_a_' + sfx + '" id="rc_form_a_' + sfx + '" class="form-control" placeholder="screening_arm_1" >' +
+                '<label class="form-control-label" for="form_event_' + sfx + '">Form Complete EVENT</label>' +
+                '<input type="text" name="form_event_' + sfx + '" id="form_event_' + sfx + '" class="form-control" placeholder="screening_arm_1" >' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
-                '<label class="form-control-label" for="rc_form_b_' + sfx + '">Form Complete VARIABLE</label>' +
-                '<input type="text" name="rc_form_b_' + sfx + '" id="rc_form_b_' + sfx + '" class="form-control" placeholder="screening_complete" >' +
+                '<label class="form-control-label" for="form_var_' + sfx + '">Form Complete VARIABLE</label>' +
+                '<input type="text" name="form_var_' + sfx + '" id="form_var_' + sfx + '" class="form-control" placeholder="screening_complete" >' +
                 '</div></div>'+
                 '</div>'+
 

@@ -23,7 +23,7 @@ class StudyFactory extends Factory
             'phone_event' => 'base_line_arm_1',
             'phone_variable' => 'bl_telephone',
             'sms_invitations' => '
-            {"calc_var_a_0":"baseline_arm_1", "calc_var_b_0":"bl_test_date","rc_form_a_0":"screening_arm_1", "rc_form_b_0":"screening_complete", "sms_timer_0":"10","num_days_0":"7","recurrence_0":"2","message_0":"This is dummy test text","calc_var_a_1":"screening_arm_1", "calc_var_b_1":"scr_test_date","rc_form_a_1":"screening_arm_1", "rc_form_b_1":"screening_complete","sms_timer_1":"10","num_days_1":"7","recurrence_1":"2","message_1":"SMS Message text 2. This is a second message."}'
+            {"date_event_0":"baseline_arm_1", "date_var_0":"bl_test_date","form_event_0":"screening_arm_1", "form_var_0":"screening_complete", "sms_timer_0":"10","num_days_0":"7","recurrence_0":"2","message_0":"This is dummy test text","date_event_1":"screening_arm_1", "date_var_1":"scr_test_date","form_event_1":"screening_arm_1", "form_var_1":"screening_complete","sms_timer_1":"10","num_days_1":"7","recurrence_1":"2","message_1":"SMS Message text 2. This is a second message."}'
         ];
     }
 }

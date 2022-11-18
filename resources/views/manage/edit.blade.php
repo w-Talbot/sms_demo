@@ -89,10 +89,10 @@
                             $num = count($tmp_array) / 8;
                             $i = 0;
                             for($x=0; $x < $num; $x++) {
-                                 $calc_var_a = 'calc_var_a_' . strval($i) ;
-                                 $calc_var_b = 'calc_var_b_' . strval($i) ;
-                                 $lrc_form_a_var = 'rc_form_a_' . strval($i) ;
-                                 $rc_form_b_var = 'rc_form_b_' . strval($i) ;
+                                 $date_event = 'date_event_' . strval($i) ;
+                                 $date_var = 'date_var_' . strval($i) ;
+                                 $form_event = 'form_event_' . strval($i) ;
+                                 $form_var = 'form_var_' . strval($i) ;
                                  $sms_timer_var = 'sms_timer_' . strval($i) ;
                                  $num_days_var = 'num_days_' . strval($i) ;
                                  $recurrence_var = 'recurrence_' . strval($i) ;
@@ -103,28 +103,28 @@
                             <div class="row pl-lg-3">
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="{{$calc_var_a}}">REDCap Date EVENT</label>
-                                        <input type="text" name="{{$calc_var_a}}" id="{{$calc_var_a}}" class="form-control" value="{{$tmp_array[$calc_var_a]}}" required autofocus>
+                                        <label class="form-control-label" for="{{$date_event}}">REDCap Date EVENT</label>
+                                        <input type="text" name="{{$date_event}}" id="{{$date_event}}" class="form-control" value="{{$tmp_array[$date_event]}}" required autofocus>
                                     </div>
                                 </div>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="{{$calc_var_b}}">REDCap Date VARIABLE</label>
-                                        <input type="text" name="{{$calc_var_b}}" id="{{$calc_var_b}}" class="form-control" value="{{$tmp_array[$calc_var_b]}}" required autofocus>
+                                        <label class="form-control-label" for="{{$date_var}}">REDCap Date VARIABLE</label>
+                                        <input type="text" name="{{$date_var}}" id="{{$date_var}}" class="form-control" value="{{$tmp_array[$date_var]}}" required autofocus>
                                     </div>
                                 </div>
                             </div>
                             <div class="row pl-lg-3">
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="{{$lrc_form_a_var}}">Form Complete EVENT</label>
-                                        <input type="text" name="{{$lrc_form_a_var}}" id="{{$lrc_form_a_var}}" class="form-control" value="{{$tmp_array[$lrc_form_a_var]}}" required autofocus>
+                                        <label class="form-control-label" for="{{$form_event}}">Form Complete EVENT</label>
+                                        <input type="text" name="{{$form_event}}" id="{{$form_event}}" class="form-control" value="{{$tmp_array[$form_event]}}" required autofocus>
                                     </div>
                                 </div>
                                 <div class="pl-lg-4">
                                     <div class="form-group">
-                                        <label class="form-control-label" for="{{$rc_form_b_var}}">Form Complete VARIABLE</label>
-                                        <input type="text" name="{{$rc_form_b_var}}" id="{{$rc_form_b_var}}" class="form-control" value="{{$tmp_array[$rc_form_b_var]}}" required autofocus>
+                                        <label class="form-control-label" for="{{$form_var}}">Form Complete VARIABLE</label>
+                                        <input type="text" name="{{$form_var}}" id="{{$form_var}}" class="form-control" value="{{$tmp_array[$form_var]}}" required autofocus>
                                     </div>
                                 </div>
                             </div>
