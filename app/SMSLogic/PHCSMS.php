@@ -47,6 +47,7 @@ public function sendSMS($participant, $message ){
 
 public function getAllStudyData(){
 
+    //This retrieves the study access information (api, url, and variables to look for)
     $tmpData = DB::select('SELECT * FROM studies');
 
     return $tmpData;
@@ -77,7 +78,7 @@ public function checkForNEWAlerts(){
     //Loop through all studies in database:
     foreach($tabledata as $study){
 
-        //Turn the data into a usable format (from STD::Class to an Array) as $tmp_array
+        //Turn the data into a new format (from STD::Class to an Array) as $tmp_array
         $data = $study;
         $tmp_array = array();
         foreach ($data as $key => $value){
@@ -171,7 +172,7 @@ public function checkForNEWAlerts(){
                                     //Create a recurring alert if specified:
                                     $recurrence = $details[$recurrence_var];
                                     if($recurrence > 0){
-                                        $studyid = $study->id;
+//                                        $studyid = $study->id;
 
                                         $alert = new AlertRecurrenceLogic();
                                         $alert->createNewAlert($study->id, $record_id_var, $record_id );

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->dateTime('first_sent');
             $table->dateTime('last_sent');
             $table->string('times_sent');
+
             $table->timestamps();
         });
     }

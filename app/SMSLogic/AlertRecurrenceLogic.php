@@ -30,10 +30,35 @@ class AlertRecurrenceLogic {
 
     public function checkForRecurringAlerts(){
 
-        $tabledata = $this->getAllRecurringSMS();
+        $alertdata = $this->getAllRecurringSMS();
 
-        if($tabledata )
+
+        //Turn the data into a new format (from STD::Class to an Array) as $tmp_array
+        $tmp_alert_array = array();
+        foreach ($alertdata as $key => $value){
+            $tmp_alert_array[$key] = $value;
+        }
+
+
+        if( $tmp_alert_array['times_sent'] !== $tmp_alert_array['times_to_send']){
+
+
+        }
+        //if the number of recurring has been reached, then remove it from the alert DB
+        else if (  $tmp_alert_array['times_sent'] === $tmp_alert_array['times_to_send'] ){
+
+            //Delete the recurring alert
+        }
+
+
+//        foreach($alertdata as $alert){
+//
+//            $stop = 0;
+//        }
+
         $stop = 0;
+
+
         /***
          * get todays date
          * access stored studies at specifed study_id
