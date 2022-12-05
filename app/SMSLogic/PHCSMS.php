@@ -64,7 +64,7 @@ public function dateEqualsSMSTrigger($date_to_check, $date_diffrence):bool{
     //unsigned value ex: 12
     $interval = $origin->diff($target)->format("%a");
 
-    if($interval == $date_diffrence){
+    if($interval === $date_diffrence){
         return true;
     }else{
         return false;
@@ -107,7 +107,7 @@ public function checkForNEWAlerts(){
         $project = new RedCapProject($apiUrl, $apiToken);
         $projectInfo = $project->exportProjectInfo();
         $records = $project->exportRecords();
-        $record_id_var = array_key_first($records[0]); //this may change, but is usually 'record_id'
+        $record_id_var = array_key_first($records[0]); //gets the record id variable name: is 'record_id' by default but is sometimes changed
         $record_id = '';
 
             //Loop through all records in project to see if they meet the criteria (stored in $details) for sending SMS:
@@ -172,10 +172,8 @@ public function checkForNEWAlerts(){
                                     //Create a recurring alert if specified:
                                     $recurrence = $details[$recurrence_var];
                                     if($recurrence > 0){
-//                                        $studyid = $study->id;
-
                                         $alert = new AlertRecurrenceLogic();
-                                        $alert->createNewAlert($study->id, $record_id_var, $record_id );
+                                        $alert->createNewAlert($study->id, $record_id_var, $record_id , $details[$recurrence_var], $details[$num_days_var] );
                                         continue;
                                     }
                                     continue;

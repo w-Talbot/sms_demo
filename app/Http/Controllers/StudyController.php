@@ -63,9 +63,8 @@ class StudyController extends Controller
 //        $tabledata = $helper->checkForNEWAlerts();
 
         //This is for testing Recurring Alerts:
-        $alert = new AlertRecurrenceLogic();
-        $alert->checkForRecurringAlerts();
-//        $alert->createNewAlert($study->id, $record_id_var, $record_id );
+//        $alert = new AlertRecurrenceLogic();
+//        $alert->checkForRecurringAlerts();
 
 
 

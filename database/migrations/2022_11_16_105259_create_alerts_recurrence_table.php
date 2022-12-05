@@ -21,7 +21,8 @@ return new class extends Migration
             $table->dateTime('first_sent');
             $table->dateTime('last_sent');
             $table->string('times_sent');
-
+            $table->string('num_of_recurrences');
+            $table->string('send_every_num_days');
             $table->timestamps();
         });
     }
