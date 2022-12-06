@@ -13,34 +13,35 @@ class PHCSMS {
 
 
 
-public function sendSMS($participant, $message ){
+public function sendSMS($textlocal_api, $participant_phone_number, $text_message ){
 
    $stop = 0;
 
 
-//
-//    $apiKey = urlencode('Your apiKey');
-//
-//    // Message details
-//    $numbers = array(447123456789, 447987654321);
-//    $sender = urlencode('Jims Autos');
-//    $message = rawurlencode('This is your message');
-//
-//    $numbers = implode(',', $numbers);
-//
-//    // Prepare data for POST request
-//    $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
-//
-//    // Send the POST request with cURL
+
+
+    $apiKey = urlencode($textlocal_api);
+
+    // Message details
+    $numbers = array($participant_phone_number);
+    $sender = urlencode('PHC');
+    $message = rawurlencode($text_message);
+
+    $numbers = implode(',', $numbers);
+
+    // Prepare data for POST request
+    $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+
+    // Send the POST request with cURL
 //    $ch = curl_init('https://api.txtlocal.com/send/');
 //    curl_setopt($ch, CURLOPT_POST, true);
 //    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 //    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //    $response = curl_exec($ch);
 //    curl_close($ch);
-//
-//    // Process your response here
-//    echo $response;
+
+    // Process your response here
+    echo $response;
 
 
 }
@@ -168,13 +169,13 @@ public function checkForNEWAlerts(){
                                 if($this->dateEqualsSMSTrigger($date_to_calc, $time_elapsed)){
                                     $stop = 0;
                                     $txt = $details[$message_var];
-                                    $this->sendSMS($phone_number, $txt);
+                                    $this->sendSMS( $textlocal_api_token, $phone_number, $txt);
 
                                     //Create a recurring alert if specified:
                                     $recurrence = $details[$recurrence_var];
                                     if($recurrence > 0){
                                         $alert = new AlertRecurrenceLogic();
-                                        $alert->createNewAlert($study->id, $record_id_var, $record_id , $details[$recurrence_var], $details[$num_days_var], $details[$form_event], $details[$form_var] );
+                                        $alert->createNewAlert($study->id, $record_id_var, $record_id , $details[$recurrence_var], $details[$num_days_var], $details[$form_event], $details[$form_var], $details[$message_var] );
                                         continue;
                                     }
                                     continue;

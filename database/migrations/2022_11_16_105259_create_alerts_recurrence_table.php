@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('record_id');
             $table->string('form_event');
             $table->string('form_variable');
+            $table->string('alert_message');
             $table->dateTime('first_sent');
             $table->dateTime('last_sent');
             $table->string('times_sent');

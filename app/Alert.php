@@ -18,6 +18,7 @@ class Alert extends Model
         'times_sent',
         'form_event',
         'form_variable',
+        'alert_message',
         'num_of_recurrences',
         'send_every_num_days'
     ];

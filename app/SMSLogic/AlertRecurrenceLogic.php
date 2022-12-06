@@ -12,7 +12,7 @@ class AlertRecurrenceLogic {
 
 
     //Create recurring alert
-    public function createNewAlert($studyid, $record_id_var, $record_id, $num_of_recurrences, $num_days, $form_event, $form_variable){
+    public function createNewAlert($studyid, $record_id_var, $record_id, $num_of_recurrences, $num_days, $form_event, $form_variable, $alert_message){
 
         $today = new \DateTime('today');
 
@@ -25,6 +25,7 @@ class AlertRecurrenceLogic {
             'times_sent' => 0,
             'form_event' => $form_event,
             'form_variable' => $form_variable,
+            'alert_message' => $alert_message,
             'num_of_recurrences' => $num_of_recurrences,
             'send_every_num_days' => $num_days
 
@@ -60,49 +61,61 @@ class AlertRecurrenceLogic {
                 //if the diff between last sent and send_every_num_days is equal, then check if is NOW complete, else continue.
                 if($date_check){
 
-                    //**** Check alert details to see if criteria are met, if yes, do nothing, if not send text and update:
                     //GET Study specifics from phc_sms_db.studies
                     $tmp_study_get = $this->getStudyAlertInfo($array->study_id);
                     $tmp_study = $tmp_study_get[0];
 
                     $stop = 0;
+
+                    //$array is the stored alert values, $tmp_array is the stored study details values
                     $record_d_variable_name = $array->record_id_variable_name;
                     $record_id = $array->record_id;
                     $alert_form_event = $array->form_event;
                     $alert_form_variable = $array->form_variable;
+                    $alert_message = $array->alert_message;
+
                     $textLocalAPI = $tmp_study->textlocal_api;
                     $REDCapAPI = $tmp_study->redcap_api;
                     $REDCapURL = $tmp_study->url;
                     $phone_event = $tmp_study->phone_event;
                     $phone_variable = $tmp_study->phone_variable;
 
+
                     $project = new RedCapProject($REDCapURL, $REDCapAPI);
                     $records = $project->exportRecords();
+                    $send_sms = false;
 
+                    //Loop through all records, where record ID matches and store relevant data
                     foreach ($records as $record) {
+
                         if( $record[$record_d_variable_name] === $record_id ){
                             //check conditions
-                            if($record[$alert_form_variable] !== 2){
-
-                                //Get participant contact details
+                            if($record['redcap_event_name'] === $alert_form_event && $record[$alert_form_variable] !== 2){
+                                $send_sms = true;
+                            }
+                            if($record['redcap_event_name'] === $phone_event && $record[$phone_variable] !== ''){
+                                $phone_number = $record[$phone_variable];
+                                //Maybe add phonenumber formatter and run it on this wt-check
+                            }
+                        }
+                    }
+                    //Maybe also only allow if valid phone-number/not null wt-check
+                    if($send_sms){
 
                                 //send SMS
-//                                $sms = $helper->sendSMS( needs values here);
+                                $sms = $helper->sendSMS($textLocalAPI, $phone_number, $alert_message );
 
                                 //Update specific alert with new date and number of times sent:
-//                                $this->updateStudyAlertInfo($array->alert_id);
+                                $this->updateStudyAlertInfo($array->alert_id);
 
                                 $stop = 0;
                                 break;
                             }
-                            $stop = 0;
-                            break;
-                        }
-                    }
 
                     $stop =0;
                 }else{
-                    continue;
+                    //Maybe add error message here wt-check
+
                 }
 
             }
