@@ -201,14 +201,28 @@ public function checkForNEWAlerts(){
     return $tabledata;
 }
 
-public function checkForRECURRINGAlerts(){
+//borrowed this piece of code from REDCap
+public function phoneFormatter($phoneNumber){
 
+    //May need to be updated wt-check
+    // If number contains an extension (denoted by a comma between the number and extension), then separate here and add later
+    $phoneExtension = "";
+    if (strpos($phoneNumber, ",") !== false) {
+        list ($phoneNumber, $phoneExtension) = explode(",", $phoneNumber, 2);
+    }
+    // Remove all non-numerals
+    $phoneNumber = preg_replace("/[^0-9]/", "", $phoneNumber);
+    // Prepend number with + for international use cases (except for short codes, which are 5 or 6 digits in length)
+//    if (strlen($phoneNumber) > 6) {
+//        $phoneNumber = (isPhoneUS($phoneNumber) ? "+1" : "+") . $phoneNumber;
+//    }
+    // If has an extension, re-add it
+    if ($phoneExtension != "") $phoneNumber .= ",$phoneExtension";
+    // Return formatted number
+    return $phoneNumber;
 
 
 }
-
-
-
 
 
 }

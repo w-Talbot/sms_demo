@@ -36,7 +36,7 @@ class AlertRecurrenceLogic {
 
     public function checkForRecurringAlerts(){
 
-        $alertdata = $this->getAllRecurringSMS();
+        $alertdata = $this->getAllSMSAlerts();
 
         //Store values in temporary array to loop through later
         $tmp_alert_array = array();
@@ -51,11 +51,10 @@ class AlertRecurrenceLogic {
 
                 //Check the dates to see if should send:
                 $helper = new PHCSMS();
-//                $date_check = $helper->dateEqualsSMSTrigger($array->last_sent, $array->send_every_num_days);
-
-                //TESTING PURPOSES ONLY **uncomment line above**  wt-check:
-                $test_date = '2022-12-04';
-                $date_check = $helper->dateEqualsSMSTrigger($test_date, $array->send_every_num_days);
+                $date_check = $helper->dateEqualsSMSTrigger($array->last_sent, $array->send_every_num_days);
+                //TESTING PURPOSES ONLY **uncomment/comment line above**
+//                $test_date = '2022-12-04';
+//                $date_check = $helper->dateEqualsSMSTrigger($test_date, $array->send_every_num_days);
                 //END
 
                 //if the diff between last sent and send_every_num_days is equal, then check if is NOW complete, else continue.
@@ -96,6 +95,7 @@ class AlertRecurrenceLogic {
                             if($record['redcap_event_name'] === $phone_event && $record[$phone_variable] !== ''){
                                 $phone_number = $record[$phone_variable];
                                 //Maybe add phonenumber formatter and run it on this wt-check
+                                $phone_number = $helper->phoneFormatter($phone_number);
                             }
                         }
                     }
@@ -117,39 +117,30 @@ class AlertRecurrenceLogic {
                     //Maybe add error message here wt-check
 
                 }
-
             }
             //if the number of recurring has been reached, then remove it from the alert DB
             else if ( $array->times_sent === $array->num_of_recurrences ){
-                $stop = 0;
-
-                //Delete the recurring alert
+                $this->destroyAlert($array->alert_id);
             }
-
         }
-
-
-        $stop = 0;
-
-
-        /***
-         * get todays date
-         * access stored studies at specifed study_id
-         * need first sent
-         * form complete staus
-         * how manys days to count from first
-         * how many repeats are there, how manyt time has it repeated
-         * who to send the txt to
-         * what is the message
-         */
-
     }
 
-    public function getAllRecurringSMS(){
+    /***
+     * @return array
+     * Returns all recurring alerts stored in the alerts table (all studies).
+     * To access an individual studies' alerts
+     * use the getStudyAlertInfo() function.
+     */
+    public function getAllSMSAlerts(){
         $tmpData = DB::select('SELECT * FROM alerts');
         return $tmpData;
     }
 
+    /***
+     * @param $studyid
+     * @return array
+     * Returns all alerts associated with a SPECIFIC study.
+     */
     public function getStudyAlertInfo($studyid){
         $sql = "SELECT * FROM studies WHERE id = '$studyid'";
         $tmpAlert = DB::select($sql);
@@ -182,7 +173,7 @@ class AlertRecurrenceLogic {
     }
 
     //Delete alert
-    public function destroyAlert( Alert $alert){
-//        $alert->delete();
+    public function destroyAlert( $alert){
+        DB::table('alerts')->where('alert_id', $alert)->delete();
     }
 }

@@ -69,6 +69,8 @@ class StudyController extends Controller
 
 
 
+
+
 // This is super important to the actual function of the site, and needs to be uncommented when no testing
         $study->update($formFields);
         return back()->with('update-message', 'Study details have been successfully updated!');
