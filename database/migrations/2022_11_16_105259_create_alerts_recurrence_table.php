@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('study_id');
             $table->string('record_id_variable_name');
             $table->string('record_id');
+            $table->string('form_event');
+            $table->string('form_variable');
             $table->dateTime('first_sent');
             $table->dateTime('last_sent');
             $table->string('times_sent');

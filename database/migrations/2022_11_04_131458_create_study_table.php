@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('studies', function (Blueprint $table) {
             $table->id();
             $table->string('study_name');
-            $table->string('api');
+            $table->string('textlocal_api');
+            $table->string('redcap_api');
             $table->string('url');
             $table->string('phone_event');
             $table->string('phone_variable');

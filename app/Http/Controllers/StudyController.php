@@ -48,7 +48,8 @@ class StudyController extends Controller
 
         $formFields = $request->validate([
             'study_name' => 'required',
-            'api' => 'required',
+            'textlocal_api' => 'required',
+            'redcap_api' => 'required',
             'url' => 'required',
             'phone_event' => 'required',
             'phone_variable' => 'required',
@@ -63,8 +64,8 @@ class StudyController extends Controller
 //        $tabledata = $helper->checkForNEWAlerts();
 
         //This is for testing Recurring Alerts:
-//        $alert = new AlertRecurrenceLogic();
-//        $alert->checkForRecurringAlerts();
+        $alert = new AlertRecurrenceLogic();
+        $alert->checkForRecurringAlerts();
 
 
 
@@ -85,7 +86,8 @@ class StudyController extends Controller
 
             $formFields = $request->validate([
                 'study_name' => 'required',
-                'api' => 'required',
+                'textlocal_api' => 'required',
+                'redcap_api' => 'required',
                 'url' => 'required',
                 'phone_event' => 'required',
                 'phone_variable' => 'required'

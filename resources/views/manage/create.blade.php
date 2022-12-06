@@ -47,12 +47,21 @@
                                 </div>
                             </div>
                             <div class="pl-lg-4">
-{{--                                <div class="form-group{{ $errors->has('api') ? ' has-danger' : '' }}">--}}
                                 <div class="form-group">
-                                    <label class="form-control-label" for="api">API:</label>
+                                    <label class="form-control-label" for="textlocal_api">Textlocal API:</label>
 
-                                    <input type="text" name="api" id="api" class="form-control" placeholder="{{ __('ex: AAB1234CDE456G789HIJ10K') }}" value="{{ old('api') }}" required autofocus>
-                                    @error('api')
+                                    <input type="text" name="textlocal_api" id="textlocal_api" class="form-control" placeholder="{{ __('ex: ABCD1234AB12CD34EF56ABC123') }}"  required autofocus>
+                                    @error('textlocal_api')
+                                    <p class="text-red-500 text-cs mt-1">{{$message}}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="api">REDCap API:</label>
+
+                                    <input type="text" name="redcap_api" id="redcap_api" class="form-control"  placeholder="{{ __('ex: ABCD1234AB12CD34EF56ABC123') }}" required autofocus>
+                                    @error('redcap_api')
                                     <p class="text-red-500 text-cs mt-1">{{$message}}</p>
                                     @enderror
                                 </div>

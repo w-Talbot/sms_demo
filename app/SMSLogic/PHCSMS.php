@@ -86,7 +86,8 @@ public function checkForNEWAlerts(){
         }
 
         //Store the current projects REDCap API details to check it for any records that should send SMS:
-        $apiToken  = $tmp_array['api'];
+        $textlocal_api_token  = $tmp_array['textlocal_api'];
+        $redcap_api_token  = $tmp_array['redcap_api'];
         $apiUrl = $tmp_array['url'];
 
         $phone_var = $tmp_array['phone_variable'];
@@ -104,7 +105,7 @@ public function checkForNEWAlerts(){
 
 
         //Get all data from REDcap project, stored in $projects and $records
-        $project = new RedCapProject($apiUrl, $apiToken);
+        $project = new RedCapProject($apiUrl, $redcap_api_token);
         $projectInfo = $project->exportProjectInfo();
         $records = $project->exportRecords();
         $record_id_var = array_key_first($records[0]); //gets the record id variable name: is 'record_id' by default but is sometimes changed
@@ -158,7 +159,7 @@ public function checkForNEWAlerts(){
 
                     try{
 //                    Check to see if form has been completed, if yes do nothing, if no check the date diff using dateEqualsSMSTRigger function
-                            if($form_complete == 2){
+                            if($form_complete === 2){
                                 //Form is complete do nothing
                                 continue;
                             }else {
@@ -173,7 +174,7 @@ public function checkForNEWAlerts(){
                                     $recurrence = $details[$recurrence_var];
                                     if($recurrence > 0){
                                         $alert = new AlertRecurrenceLogic();
-                                        $alert->createNewAlert($study->id, $record_id_var, $record_id , $details[$recurrence_var], $details[$num_days_var] );
+                                        $alert->createNewAlert($study->id, $record_id_var, $record_id , $details[$recurrence_var], $details[$num_days_var], $details[$form_event], $details[$form_var] );
                                         continue;
                                     }
                                     continue;

@@ -9,6 +9,6 @@ class Study extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['study_name', 'api', 'url','phone_event', 'phone_variable', 'sms_invitations', 'logo'];
+    protected $fillable = ['study_name', 'textlocal_api', 'redcap_api', 'url','phone_event', 'phone_variable', 'sms_invitations', 'logo'];
 
 }
