@@ -25,10 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        if (config('app.is_demo')){
-            $schedule->command('migrate:fresh --seed')->everyFifteenMinutes();
-            $schedule->command('image:seed')->everyFifteenMinutes();
-        }
+        $schedule->command('CheckNewAlerts:run')->daily();
+        $schedule->command('CheckRecurringAlerts:run')->daily();
     }
 
     /**

@@ -64,7 +64,6 @@ class AlertRecurrenceLogic {
                     $tmp_study_get = $this->getStudyAlertInfo($array->study_id);
                     $tmp_study = $tmp_study_get[0];
 
-                    $stop = 0;
 
                     //$array is the stored alert values, $tmp_array is the stored study details values
                     $record_d_variable_name = $array->record_id_variable_name;
@@ -108,11 +107,9 @@ class AlertRecurrenceLogic {
                                 //Update specific alert with new date and number of times sent:
                                 $this->updateStudyAlertInfo($array->alert_id);
 
-                                $stop = 0;
                                 break;
                             }
 
-                    $stop =0;
                 }else{
                     //Maybe add error message here wt-check
 

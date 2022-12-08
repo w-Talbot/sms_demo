@@ -58,20 +58,17 @@ class StudyController extends Controller
         $formFields['sms_invitations'] = json_encode($inv_array);
 
 
-
+        //TESTING PURPOSES: Use this to run off update.
         //This is for testing PHCSMS stuff:
 //        $helper = new PHCSMS();
 //        $tabledata = $helper->checkForNEWAlerts();
 
         //This is for testing Recurring Alerts:
-        $alert = new AlertRecurrenceLogic();
-        $alert->checkForRecurringAlerts();
+//        $alert = new AlertRecurrenceLogic();
+//        $alert->checkForRecurringAlerts();
+        //END TESTING
 
 
-
-
-
-// This is super important to the actual function of the site, and needs to be uncommented when no testing
         $study->update($formFields);
         return back()->with('update-message', 'Study details have been successfully updated!');
     }

@@ -15,7 +15,6 @@ class PHCSMS {
 
 public function sendSMS($textlocal_api, $participant_phone_number, $text_message ){
 
-   $stop = 0;
 
 
 
@@ -167,7 +166,7 @@ public function checkForNEWAlerts(){
                                 $time_elapsed = $details[$sms_timer_var];
 
                                 if($this->dateEqualsSMSTrigger($date_to_calc, $time_elapsed)){
-                                    $stop = 0;
+
                                     $txt = $details[$message_var];
                                     $this->sendSMS( $textlocal_api_token, $phone_number, $txt);
 
