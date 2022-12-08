@@ -243,16 +243,16 @@
                                     <input type="email" name="email" id="input-email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required >
                                     @include('alerts.feedback', ['field' => 'email'])
                                 </div>
-				                <div class="form-group{{ $errors->has('photo') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label">{{ __('Profile photo') }}</label>
-                                    <div class="custom-file">
-                                        <label class="custom-file-label" for="input-picture">{{ auth()->user()->profilePicture() ? str_replace("/profile_user/", "", auth()->user()->profilePicture()) : __('Select profile photo') }}</label>
-                                        <input type="file" name="photo" class="custom-file-input{{ $errors->has('photo') ? ' is-invalid' : '' }}" id="input-picture" accept="image/*">
+{{--				                <div class="form-group{{ $errors->has('photo') ? ' has-danger' : '' }}">--}}
+{{--                                    <label class="form-control-label">{{ __('Profile photo') }}</label>--}}
+{{--                                    <div class="custom-file">--}}
+{{--                                        <label class="custom-file-label" for="input-picture">{{ auth()->user()->profilePicture() ? str_replace("/profile_user/", "", auth()->user()->profilePicture()) : __('Select profile photo') }}</label>--}}
+{{--                                        <input type="file" name="photo" class="custom-file-input{{ $errors->has('photo') ? ' is-invalid' : '' }}" id="input-picture" accept="image/*">--}}
 
-                                    </div>
+{{--                                    </div>--}}
 
-                                    @include('alerts.feedback', ['field' => 'photo'])
-                                </div>
+{{--                                    @include('alerts.feedback', ['field' => 'photo'])--}}
+{{--                                </div>--}}
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>

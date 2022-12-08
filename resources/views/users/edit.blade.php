@@ -63,15 +63,15 @@
                                         @include('alerts.feedback', ['field' => 'role_id'])
                                     </div>
                                 @endif
-                                <div class="form-group{{ $errors->has('photo') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Profile photo') }}</label>
-                                    <div class="custom-file">
-                                        <input type="file" name="photo" class="custom-file-input{{ $errors->has('photo') ? ' is-invalid' : '' }}" id="input-picture" accept="image/*">
-                                        <label class="custom-file-label" for="input-picture">{{ $user->picture ?? __('Select profile photo') }}</label>
-                                    </div>
+{{--                                <div class="form-group{{ $errors->has('photo') ? ' has-danger' : '' }}">--}}
+{{--                                    <label class="form-control-label" for="input-name">{{ __('Profile photo') }}</label>--}}
+{{--                                    <div class="custom-file">--}}
+{{--                                        <input type="file" name="photo" class="custom-file-input{{ $errors->has('photo') ? ' is-invalid' : '' }}" id="input-picture" accept="image/*">--}}
+{{--                                        <label class="custom-file-label" for="input-picture">{{ $user->picture ?? __('Select profile photo') }}</label>--}}
+{{--                                    </div>--}}
 
-                                    @include('alerts.feedback', ['field' => 'photo'])
-                                </div>
+{{--                                    @include('alerts.feedback', ['field' => 'photo'])--}}
+{{--                                </div>--}}
                                 @if ($user->id != 1)
                                     <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                         <label class="form-control-label" for="input-password">{{ __('Password') }}</label>

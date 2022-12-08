@@ -60,15 +60,15 @@
 
                                     @include('alerts.feedback', ['field' => 'role_id'])
                                 </div>
-                                <div class="form-group{{ $errors->has('photo') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Profile photo') }}</label>
-                                    <div class="custom-file">
-                                        <input type="file" name="photo" class="custom-file-input{{ $errors->has('photo') ? ' is-invalid' : '' }}" id="input-picture" accept="image/*">
-                                        <label class="custom-file-label" for="input-picture">{{ __('Select profile photo') }}</label>
-                                    </div>
+{{--                                <div class="form-group{{ $errors->has('photo') ? ' has-danger' : '' }}">--}}
+{{--                                    <label class="form-control-label" for="input-name">{{ __('Profile photo') }}</label>--}}
+{{--                                    <div class="custom-file">--}}
+{{--                                        <input type="file" name="photo" class="custom-file-input{{ $errors->has('photo') ? ' is-invalid' : '' }}" id="input-picture" accept="image/*">--}}
+{{--                                        <label class="custom-file-label" for="input-picture">{{ __('Select profile photo') }}</label>--}}
+{{--                                    </div>--}}
 
-                                    @include('alerts.feedback', ['field' => 'photo'])
-                                </div>
+{{--                                    @include('alerts.feedback', ['field' => 'photo'])--}}
+{{--                                </div>--}}
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-password">{{ __('Password') }}</label>
                                     <input type="password" name="password" id="input-password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="" required>

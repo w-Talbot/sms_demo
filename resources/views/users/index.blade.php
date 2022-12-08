@@ -24,9 +24,7 @@
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <h3 class="mb-0">{{ __('Users') }}</h3>
-                                <p class="text-sm mb-0">
-                                        {{ __('This is an example of user management. This is a minimal setup in order to get started fast.') }}
-                                    </p>
+
                             </div>
                             @can('create', App\User::class)
                                 <div class="col-4 text-right">
@@ -45,7 +43,6 @@
                         <table class="table align-items-center table-flush"  id="datatable-basic">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Photo</th>
                                     <th scope="col">{{ __('Name') }}</th>
                                     <th scope="col">{{ __('Email') }}</th>
                                     <th scope="col">{{ __('Role') }}</th>
@@ -58,11 +55,6 @@
                             <tbody>
                                 @foreach ($users as $user)
                                     <tr>
-                                        <td>
-                                            <span class="avatar avatar-sm rounded-circle">
-                                                <img src="{{ $user->profilePicture() }}" alt="" style="max-width: 100px; border-radiu: 25px">
-                                            </span>
-                                        </td>
                                         <td>{{ $user->name }}</td>
                                         <td>
                                             <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
