@@ -21,6 +21,7 @@ class CheckNewAlertsCommand extends Command
      */
     protected $description = 'Check for any new alerts, run daily';
 
+
     /**
      * Execute the console command.
      *
@@ -30,6 +31,5 @@ class CheckNewAlertsCommand extends Command
     {
         $newAlert = new PHCSMS();
         $newAlert->checkForNEWAlerts();
-        return Command::SUCCESS;
     }
 }

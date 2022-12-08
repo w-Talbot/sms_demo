@@ -61,7 +61,7 @@ class StudyController extends Controller
         //TESTING PURPOSES: Use this to run off update.
         //This is for testing PHCSMS stuff:
 //        $helper = new PHCSMS();
-//        $tabledata = $helper->checkForNEWAlerts();
+//        $helper->checkForNEWAlerts();
 
         //This is for testing Recurring Alerts:
 //        $alert = new AlertRecurrenceLogic();

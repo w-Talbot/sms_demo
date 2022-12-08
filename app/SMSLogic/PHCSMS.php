@@ -40,7 +40,7 @@ public function sendSMS($textlocal_api, $participant_phone_number, $text_message
 //    curl_close($ch);
 
     // Process your response here
-    echo $response;
+//    echo $response;
 
 
 }
@@ -118,7 +118,6 @@ public function checkForNEWAlerts(){
                 //SAME record, do nothing
             }else{
                 //NEW Record check all Invitations:
-
                 $record_id = $record[$record_id_var]; //Update to working record id
 
                 //Get phone number
