@@ -25,8 +25,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('CheckNewAlerts:run')->daily();
-        $schedule->command('CheckRecurringAlerts:run')->daily();
+        $schedule->command('CheckRecurringAlerts:run')->daily()->withoutOverlapping();
+        $schedule->command('CheckNewAlerts:run')->daily()->withoutOverlapping();
+
     }
 
     /**
