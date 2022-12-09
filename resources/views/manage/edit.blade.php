@@ -141,21 +141,21 @@
                             <div class="pl-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="{{$sms_timer_var}}">Send SMS after # days</label>
-                                    <input type="text" name="{{$sms_timer_var}}" id="{{$sms_timer_var}}" value="{{$tmp_array[$sms_timer_var]}}" class="form-control" required autofocus>
+                                    <input type="number" name="{{$sms_timer_var}}" id="{{$sms_timer_var}}" value="{{$tmp_array[$sms_timer_var]}}" class="form-control" required autofocus>
                                 </div>
                             </div>
 
                             <div class="pl-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="{{$num_days_var}}">Send every # days:</label>
-                                    <input type="text" name="{{$num_days_var}}" id="{{$num_days_var}}" value="{{$tmp_array[$num_days_var]}}"  class="form-control" required autofocus>
+                                    <input type="number" name="{{$num_days_var}}" id="{{$num_days_var}}" value="{{$tmp_array[$num_days_var]}}"  class="form-control" required autofocus>
                                 </div>
                             </div>
 
                             <div class="pl-lg-4">
                                 <div class="form-group">
                                     <label class="form-control-label" for="{{$recurrence_var}}">Number of recurrences:</label>
-                                    <input type="text" name="{{$recurrence_var}}" id="{{$recurrence_var}}" value="{{$tmp_array[$recurrence_var]}}" class="form-control" required autofocus>
+                                    <input type="number" name="{{$recurrence_var}}" id="{{$recurrence_var}}" value="{{$tmp_array[$recurrence_var]}}" class="form-control" required autofocus>
                                 </div>
                             </div>
 

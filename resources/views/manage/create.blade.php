@@ -127,28 +127,28 @@
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="sms_timer_0">Send SMS after # days</label>
-                                        <input type="text" name="sms_timer_0" id="sms_timer_0" class="form-control" required autofocus>
+                                        <input type="number" name="sms_timer_0" id="sms_timer_0" class="form-control" placeholder="#" required autofocus>
                                     </div>
                                 </div>
 
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="num_days_0">Send every # days:</label>
-                                        <input type="text" name="num_days_0" id="num_days_0" class="form-control" required autofocus>
+                                        <input type="number" name="num_days_0" id="num_days_0" class="form-control" placeholder="#" required autofocus>
                                     </div>
                                 </div>
 
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="recurrence_0">Number of recurrences:</label>
-                                        <input type="text" name="recurrence_0" id="recurrence_0" class="form-control" required autofocus>
+                                        <input type="number" name="recurrence_0" id="recurrence_0" class="form-control" placeholder="#" required autofocus>
                                     </div>
                                 </div>
 
                                 <div class="pl-lg-4">
                                     <div class="form-group">
                                         <label class="form-control-label" for="message_0">SMS Message text:</label>
-                                        <input type="text" name="message_0" id="message_0" class="form-control" required autofocus>
+                                        <input type="text" name="message_0" id="message_0" class="form-control" placeholder="Text message text here." required autofocus>
                                     </div>
                                 </div>
 
@@ -206,38 +206,38 @@
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="form_event_' + sfx + '">Form Complete EVENT</label>' +
-                '<input type="text" name="form_event_' + sfx + '" id="form_event_' + sfx + '" class="form-control" placeholder="screening_arm_1" >' +
+                '<input type="text" name="form_event_' + sfx + '" id="form_event_' + sfx + '" class="form-control" placeholder="screening_arm_1" required autofocus >' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="form_var_' + sfx + '">Form Complete VARIABLE</label>' +
-                '<input type="text" name="form_var_' + sfx + '" id="form_var_' + sfx + '" class="form-control" placeholder="screening_complete" >' +
+                '<input type="text" name="form_var_' + sfx + '" id="form_var_' + sfx + '" class="form-control" placeholder="screening_complete" required autofocus >' +
                 '</div></div>'+
                 '</div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="sms_timer_' + sfx + '">Send SMS after # days</label>' +
-                '<input type="text" name="sms_timer_' + sfx + '" id="sms_timer_' + sfx + '" class="form-control" required autofocus>' +
+                '<input type="number" name="sms_timer_' + sfx + '" id="sms_timer_' + sfx + '" class="form-control" placeholder="#"  required autofocus>' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="num_days_' + sfx + '">Send every # days:</label>' +
-                '<input type="text" name="num_days_' + sfx + '" id="num_days_' + sfx + '" class="form-control" required autofocus>' +
+                '<input type="number" name="num_days_' + sfx + '" id="num_days_' + sfx + '" class="form-control" placeholder="#" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="recurrence_' + sfx + '">Number of recurrences:</label>' +
-                '<input type="text" name="recurrence_' + sfx + '" id="recurrence_' + sfx + '" class="form-control" required autofocus>' +
+                '<input type="number" name="recurrence_' + sfx + '" id="recurrence_' + sfx + '" class="form-control" placeholder="#" required autofocus>' +
                 '</div></div>'+
 
                 '<div class="pl-lg-4">' +
                 '<div class="form-group">' +
                 '<label class="form-control-label" for="message_' + sfx + '">SMS Message text:</label>' +
-                '<input type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" required autofocus>' +
+                '<input type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" placeholder="Text message text here." required autofocus>' +
                 '</div></div>'+
 
                 '<div class="input-group m-3">' +
