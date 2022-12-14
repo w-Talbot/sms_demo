@@ -52,7 +52,7 @@ class AlertRecurrenceLogic {
 
                     //Check the dates to see if should send:
                     $helper = new PHCSMS();
-                $date_check = $helper->dateEqualsSMSTrigger($array->last_sent, $array->send_every_num_days);
+                    $date_check = $helper->dateEqualsSMSTrigger($array->last_sent, $array->send_every_num_days);
                     //TESTING PURPOSES ONLY **uncomment/comment line above**
 //                    $test_date = '2022-12-06';
 //                    $date_check = $helper->dateEqualsSMSTrigger($test_date, $array->send_every_num_days);

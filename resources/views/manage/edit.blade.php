@@ -172,7 +172,7 @@
  }
 @endphp
 
-                            <button type="submit" class="btn btn-success mt-4" onclick="confirm('{{ __("Are you sure you want to Update this item?") }}') ? this.parentElement.submit() : ''">Update</button>
+                            <button type="submit" class="btn btn-success mt-4">Update</button>
                         </form>
 
                         <form method ="post" action="/manage/{{$study->id}}" method="post">
