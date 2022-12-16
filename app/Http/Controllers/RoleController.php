@@ -46,10 +46,10 @@ class RoleController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    // public function create()
-    // {
-    //     return view('roles.create');
-    // }
+     public function create()
+     {
+         return view('roles.create');
+     }
 
     /**
      * Store a newly created role in storage
@@ -58,12 +58,12 @@ class RoleController extends Controller
      * @param  \App\Role  $model
      * @return \Illuminate\Http\RedirectResponse
      */
-    // public function store(RoleRequest $request, Role $model)
-    // {
-    //     $model->create($request->all());
+     public function store(RoleRequest $request, Role $model)
+     {
+         $model->create($request->all());
 
-    //     return redirect()->route('role.index')->withStatus(__('Role successfully created.'));
-    // }
+         return redirect()->route('role.index')->withStatus(__('Role successfully created.'));
+     }
 
     /**
      * Show the form for editing the specified role

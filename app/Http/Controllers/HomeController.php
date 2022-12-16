@@ -39,9 +39,10 @@ class HomeController extends Controller
     public function index()
     {
 //        return view('pages.dashboard');
-        return view('pages.dashboard',[
-            'studies' => Study::all()
-        ]);
+//        return view('pages.dashboard',[
+//            'studies' => Study::all()
+//        ]);
+        return redirect('manage/index');
 
 
     }

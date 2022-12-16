@@ -15,6 +15,7 @@ class PHCSMS {
 
 public function sendSMS($textlocal_api, $participant_phone_number, $text_message ){
 
+    $status = true;
     try {
         $apiKey = urlencode($textlocal_api);
 
@@ -30,17 +31,25 @@ public function sendSMS($textlocal_api, $participant_phone_number, $text_message
 
         // Send the POST request with cURL
     $ch = curl_init('https://api.txtlocal.com/send/');
+
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 400); //timeout in seconds
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $response = curl_exec($ch);
     curl_close($ch);
+
+
     }catch ( \Exception $e) {
         echo 'You have run into an error, please return to the Edit and make sure all variables are correctly input';
         //Should log error wt-check
-
+        $status = false;
     }
+     //Add log here for what was sent wt-check
+    //Add new var status status is true for sent false if not, this should go to log file as well.
 
+    return $status;
 }
 
 public function getAllStudyData(){

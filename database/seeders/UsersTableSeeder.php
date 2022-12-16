@@ -17,25 +17,25 @@ class UsersTableSeeder extends Seeder
         User::factory()->create([
             'id' => 1,
             'name' => 'Admin',
-            'email' => 'admin@argon.com',
+            'email' => 'phc-ctu-it@phc.ox.ac.uk',
             'role_id' => 1,
             'picture' => '../argon/img/theme/team-3.jpg'
         ]);
 
-        User::factory()->create([
-            'id' => 2,
-            'name' => 'Creator',
-            'email' => 'creator@argon.com',
-            'role_id' => 2,
-            'picture' => '../argon/img/theme/team-4.jpg'
-        ]);
+//        User::factory()->create([
+//            'id' => 2,
+//            'name' => 'Creator',
+//            'email' => 'creator@argon.com',
+//            'role_id' => 2,
+//            'picture' => '../argon/img/theme/team-4.jpg'
+//        ]);
 
-        User::factory()->create([
-            'id' => 3,
-            'name' => 'Member',
-            'email' => 'member@argon.com',
-            'role_id' => 3,
-            'picture' => '../argon/img/theme/team-5.jpg'
-        ]);
+//        User::factory()->create([
+//            'id' => 3,
+//            'name' => 'Member',
+//            'email' => 'member@argon.com',
+//            'role_id' => 3,
+//            'picture' => '../argon/img/theme/team-5.jpg'
+//        ]);
     }
 }

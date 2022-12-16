@@ -60,42 +60,9 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title itemprop="name">{{ $metaTitle ?? 'Argon Dashboard PRO Laravel - Premium Frontend Preset for Laravel' }}</title>
+        <title itemprop="name">{{ 'PHC SMS' }}</title>
 
-        @if (config('app.is_demo'))
 
-        <!-- Canonical SEO -->
-        <link rel="canonical" href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" />
-
-        <!--  Social tags      -->
-        <meta name="keywords" content="creative tim, updivision, html dashboard, html css dashboard, web dashboard, bootstrap 4 dashboard, laravel dashboard, bootstrap 4, laravel, css3 dashboard, bootstrap 4 admin, argon laravel dashboard, bootstrap 4 dashboard, frontend, responsive bootstrap 4 dashboard, argon laravel design, argon laravel dashboard bootstrap">
-        <meta name="description" content="Argon Laravel Dashboard PRO is a beautiful Bootstrap 4 & Laravel admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-
-        <!-- Schema.org markup for Google -->
-        <meta itemprop="name" content="Argon Dashboard PRO Laravel - Premium Frontend Preset for Laravel">
-        <meta itemprop="description" content="Argon Dashboard PRO Laravel is a beautiful Bootstrap 4 admin dashboard with a large number of components built by Creative Tim & UPDIVISION. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-
-        <meta itemprop="image" content="https://s3.amazonaws.com/creativetim_bucket/products/146/original/opt_adp_laravel_thumbnail.jpg">
-
-        <!-- Twitter Card data -->
-        <meta name="twitter:card" content="product">
-        <meta name="twitter:site" content="@creativetim">
-        <meta name="twitter:title" content="Argon Dashboard PRO Laravel - Premium Frontend Preset for Laravel">
-
-        <meta name="twitter:description" content="Argon Dashboard PRO Laravel is a beautiful Bootstrap 4 admin dashboard with a large number of components built by Creative Tim & UPDIVISION. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
-        <meta name="twitter:creator" content="@creativetim">
-        <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/146/original/opt_adp_laravel_thumbnail.jpg">
-
-        <!-- Open Graph data -->
-        <meta property="fb:app_id" content="655968634437471">
-        <meta property="og:title" content="Argon Dashboard PRO Laravel - Premium Frontend Preset for Laravel" />
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://argon-dashboard-pro-laravel.creative-tim.com/" />
-        <meta property="og:image" content="https://s3.amazonaws.com/creativetim_bucket/products/146/original/opt_adp_laravel_thumbnail.jpg"/>
-        <meta property="og:description" content="Argon Dashboard PRO Laravel is a beautiful Bootstrap 4 admin dashboard with a large number of components built by Creative Tim & UPDIVISION. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
-        <meta property="og:site_name" content="Creative Tim & UPDIVISION" />
-
-        @endif
 
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
@@ -115,12 +82,7 @@
         <link type="text/css" href="{{ asset('css') }}/argon.css?v=2.2.0" rel="stylesheet">
     </head>
     <body class="{{ $class ?? '' }}">
-        @if (config('app.is_demo'))
-            <!-- Google Tag Manager (noscript) -->
-            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-            <!-- End Google Tag Manager (noscript) -->
-        @endif
+
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
@@ -158,12 +120,12 @@
 
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.1"></script>
-        <script src="{{ asset('argon') }}/js/demo.min.js"></script>
+{{--        <script src="{{ asset('argon') }}/js/demo.min.js"></script>--}}
         <!-- Bootstrap Tourist -->
         <script src="{{ asset('argon') }}/js/bootstrap-tourist.js"></script>
-        @if (config('app.is_demo'))
-            <script src="{{ asset('argon') }}/js/tour.js?v=1"></script>
-        @endif
+{{--        @if (config('app.is_demo'))--}}
+{{--            <script src="{{ asset('argon') }}/js/tour.js?v=1"></script>--}}
+{{--        @endif--}}
 
     </body>
 </html>

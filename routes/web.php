@@ -46,11 +46,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //For testing
-    Route::get('/demo/example', function(){
-        return view('demo.example',[
-            'studies'=> Study::all()
-        ]);
-    });
+//    Route::get('/demo/example', function(){
+//        return view('demo.example',[
+//            'studies'=> Study::all()
+//        ]);
+//    });
 
 
 });
