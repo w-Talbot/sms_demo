@@ -25,15 +25,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('CheckRecurringAlerts:run')->dailyAt('09:00')->withoutOverlapping();
-        $schedule->command('CheckNewAlerts:run')->dailyAt('09:00')->withoutOverlapping();
+        $schedule->command('SendSMSMessages:run')->dailyAt('09:00')->withoutOverlapping();
+
 
         //TESTING:
-//        $schedule->command('CheckRecurringAlerts:run')
+//        $schedule->command('SendSMSMessages:run')
 //            ->dailyAt('15:19');
-//
-//        $schedule->command('CheckNewAlerts:run')
-//            ->dailyAt('15:19');
+
         //END
 
     }

@@ -12,7 +12,7 @@ class CheckNewAlertsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'CheckNewAlerts:run';
+    protected $signature = 'SendSMSMessages:run';
 
     /**
      * The console command description.
@@ -30,6 +30,6 @@ class CheckNewAlertsCommand extends Command
     public function handle()
     {
         $newAlert = new PHCSMS();
-        $newAlert->checkForNEWAlerts();
+        $newAlert->checkForSMSToSend();
     }
 }

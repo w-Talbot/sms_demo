@@ -12,7 +12,7 @@ class AlertRecurrenceLogic {
 
 
     //Create recurring alert
-    public function createNewAlert($studyid, $record_id_var, $record_id, $num_of_recurrences, $num_days, $form_event, $form_variable, $alert_message){
+    public function createNewAlert($studyid, $record_id_var, $record_id, $calc_date, $send_after_num_days_elapsed,  $num_of_recurrences, $num_days, $form_event, $form_variable, $alert_message){
 
         $today = new \DateTime('today');
 
@@ -20,12 +20,13 @@ class AlertRecurrenceLogic {
             'study_id' => $studyid,
             'record_id_variable_name' => $record_id_var,
             'record_id' => $record_id,
-            'first_sent' => $today,
-            'last_sent' => $today,
+            'calc_date' => $calc_date,
+            'last_sent' => null,
             'times_sent' => 0,
             'form_event' => $form_event,
             'form_variable' => $form_variable,
             'alert_message' => $alert_message,
+            'send_after_num_days_elapsed' => $send_after_num_days_elapsed,
             'num_of_recurrences' => $num_of_recurrences,
             'send_every_num_days' => $num_days
 

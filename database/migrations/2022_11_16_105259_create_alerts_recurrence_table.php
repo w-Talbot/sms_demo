@@ -21,9 +21,10 @@ return new class extends Migration
             $table->string('form_event');
             $table->string('form_variable');
             $table->string('alert_message');
-            $table->dateTime('first_sent');
-            $table->dateTime('last_sent');
+            $table->dateTime('calc_date');
+            $table->dateTime('last_sent')->nullable();
             $table->string('times_sent');
+            $table->string('send_after_num_days_elapsed');
             $table->string('num_of_recurrences');
             $table->string('send_every_num_days');
             $table->timestamps();

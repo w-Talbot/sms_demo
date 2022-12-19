@@ -13,12 +13,13 @@ class Alert extends Model
         'study_id',
         'record_id_variable_name',
         'record_id',
-        'first_sent',
+        'calc_date',
         'last_sent',
         'times_sent',
         'form_event',
         'form_variable',
         'alert_message',
+        'send_after_num_days_elapsed',
         'num_of_recurrences',
         'send_every_num_days'
     ];
