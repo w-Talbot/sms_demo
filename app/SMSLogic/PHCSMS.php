@@ -345,9 +345,17 @@ public function checkForSMSToSend(){
                         //send SMS
                         $sms = $this->sendSMS($textLocalAPI, $phone_number, $alert_message);
 
-                        //Update specific alert with new date and number of times sent:
-                        $helper->updateStudyAlertInfo($array->alert_id);
+                        //Check if sms sent:
+                        if($sms){
+                            //SMS was sent: Update specific alert with new date and number of times sent:
+                            $helper->updateStudyAlertInfo($array->alert_id);
+                        }else{
+                            //SMS was not sent: log this
 
+                            //TESTING WITH SMS OFF:
+//                            $helper->updateStudyAlertInfo($array->alert_id);
+                            //END TESTING
+                        }
 
                     }
                 }
