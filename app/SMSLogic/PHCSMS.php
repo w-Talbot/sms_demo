@@ -390,6 +390,8 @@ public function phoneFormatter($phoneNumber){
 
 }
 
+
+
     public function getAllSMSAlerts(){
         $tmpData = DB::select('SELECT * FROM alerts');
         return $tmpData;
