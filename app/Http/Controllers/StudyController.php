@@ -60,10 +60,10 @@ class StudyController extends Controller
 
         //TESTING PURPOSES: Use this to run off update.
         //This is for testing PHCSMS stuff:
-        $helper = new PHCSMS();
+//        $helper = new PHCSMS();
 //        $helper->checkForNewSMSAlerts();
 //        $helper->checkForSMSToSend();
-        $sms_test = $helper->sendSMS(1, 'nothing', 'nothing', 'nothing' );
+//        $sms_test = $helper->sendSMS(1, 'nothing', 'nothing', 'nothing' );
 
 
         //This is for testing Recurring Alerts:

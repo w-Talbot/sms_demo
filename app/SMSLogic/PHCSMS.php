@@ -8,6 +8,10 @@ use IU\PHPCap\PhpCapException;
 use App\StudyConfiguration;
 use Illuminate\Support\Facades\DB;
 use App\SMSLogic\AlertRecurrenceLogic;
+use App\Textlocal\Textlocal;
+
+
+
 
 
 class PHCSMS {
@@ -16,30 +20,24 @@ class PHCSMS {
 
 public function sendSMS($sms_alert_id , $textlocal_api, $participant_phone_number, $text_message ){
 
-    $apiKey = urlencode($textlocal_api);
+    $status =  true;
 
-    // Message details
-    $numbers = array($participant_phone_number);
-    $sender = urlencode('PHC');
-    $message = rawurlencode($text_message);
+    try{
+        $Textlocal = new Textlocal(false, false, $textlocal_api);
 
-    $numbers = implode(',', $numbers);
+        $numbers = array($participant_phone_number);
+        $sender = 'PHC';
+        $message = $text_message;
 
-    // Prepare data for POST request
-    $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+        $response = $Textlocal->sendSms($numbers, $message, $sender);
+        print_r($response);
 
-    // Send the POST request with cURL
-    $ch = curl_init('https://api.txtlocal.com/send/');
-
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 400); //timeout in seconds
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-
+    }catch (\Exception $e){
+        $status =  false;
+        $note = 'FAILED::sendSMS This failed to send Alert_ID: ' . $sms_alert_id . ' please check Textlocal API: ' . $textlocal_api . ' and phone number ';
+        $this->updateActivityHistory($sms_alert_id, null, null, $note, $e);
+    }
+return $status;
 }
 
 public function getAllStudyCriteria(){
