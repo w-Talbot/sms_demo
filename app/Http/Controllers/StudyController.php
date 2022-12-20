@@ -62,7 +62,8 @@ class StudyController extends Controller
         //This is for testing PHCSMS stuff:
         $helper = new PHCSMS();
 //        $helper->checkForNewSMSAlerts();
-        $helper->checkForSMSToSend();
+//        $helper->checkForSMSToSend();
+        $sms_test = $helper->sendSMS(1, 'nothing', 'nothing', 'nothing' );
 
 
         //This is for testing Recurring Alerts:

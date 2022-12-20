@@ -24,8 +24,8 @@ class UsersTableSeeder extends Seeder
 
 //        User::factory()->create([
 //            'id' => 2,
-//            'name' => 'Creator',
-//            'email' => 'creator@argon.com',
+//            'name' => 'Test',
+//            'email' => 'admin@argon.com',
 //            'role_id' => 2,
 //            'picture' => '../argon/img/theme/team-4.jpg'
 //        ]);

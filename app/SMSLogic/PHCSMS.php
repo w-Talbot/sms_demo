@@ -14,23 +14,21 @@ class PHCSMS {
 
 
 
-public function sendSMS($textlocal_api, $participant_phone_number, $text_message ){
+public function sendSMS($sms_alert_id , $textlocal_api, $participant_phone_number, $text_message ){
 
-    $status = true;
-    try {
-        $apiKey = urlencode($textlocal_api);
+    $apiKey = urlencode($textlocal_api);
 
-        // Message details
-        $numbers = array($participant_phone_number);
-        $sender = urlencode('PHC');
-        $message = rawurlencode($text_message);
+    // Message details
+    $numbers = array($participant_phone_number);
+    $sender = urlencode('PHC');
+    $message = rawurlencode($text_message);
 
-        $numbers = implode(',', $numbers);
+    $numbers = implode(',', $numbers);
 
-        // Prepare data for POST request
-        $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+    // Prepare data for POST request
+    $data = array('apikey' => $apiKey, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
 
-        // Send the POST request with cURL
+    // Send the POST request with cURL
     $ch = curl_init('https://api.txtlocal.com/send/');
 
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
@@ -42,15 +40,6 @@ public function sendSMS($textlocal_api, $participant_phone_number, $text_message
     curl_close($ch);
 
 
-    }catch ( \Exception $e) {
-        echo 'You have run into an error, please return to the Edit and make sure all variables are correctly input';
-        //Should log error wt-check
-        $status = false;
-    }
-     //Add log here for what was sent wt-check
-    //Add new var status status is true for sent false if not, this should go to log file as well.
-
-    return $status;
 }
 
 public function getAllStudyCriteria(){
@@ -95,9 +84,9 @@ public function checkForNewSMSAlerts(){
             }
 
             //Store the current projects REDCap API details to check it for any records that should send SMS:
-            $textlocal_api_token  = $tmp_array['textlocal_api'];
-            $redcap_api_token  = $tmp_array['redcap_api'];
-            $apiUrl = $tmp_array['url'];
+            $textlocal_api_token  = trim($tmp_array['textlocal_api']);
+            $redcap_api_token  = trim($tmp_array['redcap_api']);
+            $apiUrl = trim($tmp_array['url']);
 
             $phone_var = $tmp_array['phone_variable'];
             $phone_event = $tmp_array['phone_event'];
@@ -240,7 +229,8 @@ public function checkForNewSMSAlerts(){
                 }
 
             }catch (\Exception $e){
-                echo 'You have run into an error, please check that the REDCap API or REDCap URL is correct';
+                echo  'Failed::checkForNewSMS() Check TextlocalAPI:' . $textlocal_api_token . ' REDCap API: ' . $redcap_api_token . ' REDCapURL: ' . $apiUrl . '' ;
+
                 //Should log error wt-check
                 continue;
             }
@@ -343,7 +333,7 @@ public function checkForSMSToSend(){
 
                         $stop = 0;
                         //send SMS
-                        $sms = $this->sendSMS($textLocalAPI, $phone_number, $alert_message);
+                        $sms = $this->sendSMS( $array->study_id, $textLocalAPI, $phone_number, $alert_message);
 
                         //Check if sms sent:
                         if($sms){
@@ -390,7 +380,19 @@ public function phoneFormatter($phoneNumber){
 
 }
 
+public function updateActivityHistory($sms_alert_id, $sms_study_id, $redcap_record_id, $error_note, $error_message){
 
+    $sql = "INSERT INTO phc_sms_db.activity_history
+            VALUES
+                tsms_alert_id = '$sms_alert_id',
+                sms_study_id = '$sms_study_id',
+                redcap_record_id = '$redcap_record_id',
+                error_note = '$error_note',
+                error_message = '$error_message'";
+
+    DB::statement($sql);
+
+}
 
     public function getAllSMSAlerts(){
         $tmpData = DB::select('SELECT * FROM alerts');

@@ -155,8 +155,10 @@
                             <div id="newinput"></div>
                             <button type="button" id="rowAdder" class="btn btn-primary">Add another invitation</button>
 
+                            <div>
+                                <button type="submit" class="btn btn-success mt-4">Save</button>
+                            </div>
 
-                            <button type="submit" class="btn btn-success mt-4">Save</button>
                         </form>
                     </div>
 
