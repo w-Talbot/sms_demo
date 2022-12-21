@@ -336,6 +336,7 @@ public function checkForSMSToSend(){
                         if($sms){
                             //SMS was sent: Update specific alert with new date and number of times sent:
                             $helper->updateStudyAlertInfo($array->alert_id);
+                            //Update activity log:
                             $note = 'SMS for alert ID: ' . $array->alert_id . ' was successfully sent.';
                             $this->updateActivityHistory($array->alert_id, null, $record_id, $note, null );
                         }else{
@@ -363,21 +364,54 @@ public function checkForSMSToSend(){
 //borrowed this piece of code from REDCap
 public function phoneFormatter($phoneNumber){
 
-    //May need to be updated wt-check
-    // If number contains an extension (denoted by a comma between the number and extension), then separate here and add later
-    $phoneExtension = "";
-    if (strpos($phoneNumber, ",") !== false) {
-        list ($phoneNumber, $phoneExtension) = explode(",", $phoneNumber, 2);
-    }
+    $prefix = '44';
+    $invalid = '';
+
     // Remove all non-numerals
     $phoneNumber = preg_replace("/[^0-9]/", "", $phoneNumber);
-    // Prepend number with + for international use cases (except for short codes, which are 5 or 6 digits in length)
-//    if (strlen($phoneNumber) > 6) {
-//        $phoneNumber = (isPhoneUS($phoneNumber) ? "+1" : "+") . $phoneNumber;
-//    }
-    // If has an extension, re-add it
-    if ($phoneExtension != "") $phoneNumber .= ",$phoneExtension";
-    // Return formatted number
+
+    //check if enough digits for number
+    if (strlen($phoneNumber) < 11) {
+        // Not enough digits: invalid number
+        $note = 'FAILED::phoneFormatter(). Please check the phone number';
+        $this->updateActivityHistory(null, null, null, $note, null);
+        return $invalid;
+    }
+
+    $first_digit = (int)substr($phoneNumber, 0, 1);
+
+    if (strlen($phoneNumber) === 11 && $first_digit === 0 ) {
+
+        $tmp_phone_number = substr($phoneNumber, 1, 10);
+        $phoneNumber = $prefix . $tmp_phone_number;
+        $stop = 0;
+
+    }
+
+    //If number is greater
+    if (strlen($phoneNumber) > 12){
+
+        $first_two_digits = substr($phoneNumber, 0, 2);
+
+        if((int)$first_two_digits === 44 ){
+
+            $third_digit = substr($phoneNumber, 2, 1);
+
+            if((int)$third_digit === 0){
+
+                $tmp_phone_number = substr($phoneNumber, 3, 10);
+                $phoneNumber = $prefix . $tmp_phone_number;
+                if((int)strlen($phoneNumber) !== 12){
+                    $phoneNumber = $invalid;
+                }
+            }else{
+                $phoneNumber = $invalid;
+            }
+        }else{
+            $phoneNumber = $invalid;
+        }
+    }
+
     return $phoneNumber;
 
 }
