@@ -84,7 +84,13 @@ class AlertRecurrenceLogic {
     }
 
     //Delete alert
-    public function destroyAlert( $alert){
+    public function destroySingleAlert( $alert){
         DB::table('alerts')->where('alert_id', $alert)->delete();
+    }
+
+    //Delete all alerts for study
+    public function destroyAllStudyAlerts( $alert){
+        DB::table('alerts')->where('study_id', $alert)->delete();
+
     }
 }

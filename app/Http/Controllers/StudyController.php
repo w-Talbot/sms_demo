@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Alert;
 use App\SMSLogic\PHCSMS;
 use App\SMSLogic\AlertRecurrenceLogic;
 
 use App\Study;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class StudyController extends Controller
@@ -70,6 +72,7 @@ class StudyController extends Controller
         //This is for testing Recurring Alerts:
 //        $alert = new AlertRecurrenceLogic();
 //        $alert->checkForRecurringAlerts();
+//        $alert->createNewAlert(5,123123,0000,'2022-10-10', 5,5,5,'test','test', 'test'  );
         //END TESTING
 
 
@@ -103,9 +106,16 @@ class StudyController extends Controller
             return redirect('/manage/index');
         }
 
-    //Delete study
+    //Delete study (and all associated alerts)
     public function destroy( Study $study){
+
+        //first destroy all associated alerts:
+        $alert = new AlertRecurrenceLogic();
+        $alert->destroyAllStudyAlerts( $study["id"]);
+        //then destroy the study itself:
         $study->delete();
+
+
         return redirect('/manage/index')->with('delete-message', 'Study has been deleted successfully');
     }
 
