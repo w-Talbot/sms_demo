@@ -58,12 +58,13 @@ class StudyController extends Controller
         $formFields['sms_invitations'] = json_encode($inv_array);
 
 
-        //TESTING PURPOSES: Use this to run off update.
+        //TESTING PURPOSES: Use this to run off update button.
         //This is for testing PHCSMS stuff:
-//        $helper = new PHCSMS();
+        $helper = new PHCSMS();
+//        $helper->updateActivityHistory(null, null, null, 'test note 1', 'test error message');
 //        $helper->checkForNewSMSAlerts();
 //        $helper->checkForSMSToSend();
-//        $sms_test = $helper->sendSMS(1, 'nothing', 'nothing', 'nothing' );
+        $sms_test = $helper->sendSMS(999, 'noapi', '447892936509', 'Testing return values.' );
 
 
         //This is for testing Recurring Alerts:

@@ -10,8 +10,7 @@ class Activity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'sms_alert_id',
+              'sms_alert_id',
         'sms_study_id',
         'redcap_record_id',
         'error_note',

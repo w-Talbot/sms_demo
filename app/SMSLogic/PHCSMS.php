@@ -2,6 +2,7 @@
 
 namespace App\SMSLogic;
 
+use App\Activity;
 use App\Alert;
 use IU\PHPCap\RedCapProject;
 use IU\PHPCap\PhpCapException;
@@ -9,8 +10,7 @@ use App\StudyConfiguration;
 use Illuminate\Support\Facades\DB;
 use App\SMSLogic\AlertRecurrenceLogic;
 use App\Textlocal\Textlocal;
-
-
+use \Exception;
 
 
 
@@ -22,7 +22,7 @@ public function sendSMS($sms_alert_id , $textlocal_api, $participant_phone_numbe
 
     $status =  true;
 
-    try{
+    try {
         $Textlocal = new Textlocal(false, false, $textlocal_api);
 
         $numbers = array($participant_phone_number);
@@ -30,13 +30,14 @@ public function sendSMS($sms_alert_id , $textlocal_api, $participant_phone_numbe
         $message = $text_message;
 
         $response = $Textlocal->sendSms($numbers, $message, $sender);
-        print_r($response);
 
     }catch (\Exception $e){
-        $status =  false;
-        $note = 'FAILED::sendSMS This failed to send Alert_ID: ' . $sms_alert_id . ' please check Textlocal API: ' . $textlocal_api . ' and phone number ';
+        $note = 'FAILED::sendSMS This failed to send Alert_ID: ' . $sms_alert_id . ' please check Textlocal API: ' . $textlocal_api . ' . ';
         $this->updateActivityHistory($sms_alert_id, null, null, $note, $e);
+        $status = false;
+
     }
+
 return $status;
 }
 
@@ -227,9 +228,8 @@ public function checkForNewSMSAlerts(){
                 }
 
             }catch (\Exception $e){
-                echo  'Failed::checkForNewSMS() Check TextlocalAPI:' . $textlocal_api_token . ' REDCap API: ' . $redcap_api_token . ' REDCapURL: ' . $apiUrl . '' ;
-
-                //Should log error wt-check
+                $note =  'Failed::checkForNewSMS() Check TextlocalAPI:' . $textlocal_api_token . ' REDCap API: ' . $redcap_api_token . ' REDCapURL: ' . $apiUrl . '' ;
+                $this->updateActivityHistory(null, null, null, $note, $e);
                 continue;
             }
 
@@ -321,12 +321,11 @@ public function checkForSMSToSend(){
                             //Retrieve the phone number from the correct record and store it:
                             if ($record['redcap_event_name'] === $phone_event && $record[$phone_variable] !== '') {
                                 $phone_number = $record[$phone_variable];
-                                //Maybe add phonenumber formatter and run it on this wt-check
                                 $phone_number = $this->phoneFormatter($phone_number);
                             }
                         }
                     }
-                    //Maybe also only allow if valid phone-number/not null wt-check
+
                     if ($send_sms) {
 
                         $stop = 0;
@@ -337,8 +336,12 @@ public function checkForSMSToSend(){
                         if($sms){
                             //SMS was sent: Update specific alert with new date and number of times sent:
                             $helper->updateStudyAlertInfo($array->alert_id);
+                            $note = 'SMS for alert ID: ' . $array->alert_id . ' was successfully sent.';
+                            $this->updateActivityHistory($array->alert_id, null, $record_id, $note, null );
                         }else{
                             //SMS was not sent: log this
+                            $note = 'SMS FAILED TO SEND for alert ID: ' . $array->alert_id . ' .';
+                            $this->updateActivityHistory($array->alert_id, null, $record_id, $note, null );
 
                             //TESTING WITH SMS OFF:
 //                            $helper->updateStudyAlertInfo($array->alert_id);
@@ -349,7 +352,8 @@ public function checkForSMSToSend(){
                 }
 
             }catch(\Exception $e){
-            //log error wt-check
+                $note =  'Failed::checkForSMSToSend()'  ;
+                $this->updateActivityHistory(null, null, null, $note, $e);
             }
         }
 
@@ -378,19 +382,21 @@ public function phoneFormatter($phoneNumber){
 
 }
 
-public function updateActivityHistory($sms_alert_id, $sms_study_id, $redcap_record_id, $error_note, $error_message){
+    public function updateActivityHistory($sms_alert_id, $sms_study_id, $redcap_record_id, $error_note, $error_message){
 
-    $sql = "INSERT INTO phc_sms_db.activity_history
-            VALUES
-                tsms_alert_id = '$sms_alert_id',
-                sms_study_id = '$sms_study_id',
-                redcap_record_id = '$redcap_record_id',
-                error_note = '$error_note',
-                error_message = '$error_message'";
+        $activity_array = [
+            'sms_alert_id' => $sms_alert_id,
+            'sms_study_id' => $sms_study_id,
+            'redcap_record_id' => $redcap_record_id,
+            'error_note' => $error_note,
+            'error_message' => $error_message
 
-    DB::statement($sql);
 
-}
+        ];
+
+        Activity::create($activity_array);
+
+    }
 
     public function getAllSMSAlerts(){
         $tmpData = DB::select('SELECT * FROM alerts');
