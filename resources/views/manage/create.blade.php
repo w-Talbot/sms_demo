@@ -184,6 +184,7 @@
     <script type="text/javascript">
 
         var sfx = 0;
+
         $("#rowAdder").click(function () {
 
             sfx = sfx + 1;
@@ -242,6 +243,7 @@
                 '<input type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" placeholder="Text message text here." required autofocus>' +
                 '</div></div>'+
 
+
                 '<div class="input-group m-3">' +
                 '<div class="input-group-prepend">' +
                 '<button class="btn btn-danger" id="DeleteRow" type="button">' +
@@ -253,6 +255,7 @@
         });
 
         $("body").on("click", "#DeleteRow", function () {
+
             $(this).parents("#addrow").remove();
         })
     </script>

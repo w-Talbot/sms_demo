@@ -97,7 +97,16 @@
                             // note:: $num is divided by the number of inputs for lopping purposes, if you add an input (ex: logic, message, etc), you need to add to the number it is divided by
                             $num = count($tmp_array) / 8;
                             $i = 0;
-                            for($x=0; $x < $num; $x++) {
+
+
+//                            for($x=0; $x < $num; $x++) {
+                            for($x=0; $x < sizeof($tmp_array); $x++) {
+
+                                 if(!isset($tmp_array['message_' . $x])){
+                                     $i++;
+                                     continue;
+                                 }
+
                                  $date_event = 'date_event_' . strval($i) ;
                                  $date_var = 'date_var_' . strval($i) ;
                                  $form_event = 'form_event_' . strval($i) ;
@@ -106,6 +115,8 @@
                                  $num_days_var = 'num_days_' . strval($i) ;
                                  $recurrence_var = 'recurrence_' . strval($i) ;
                                  $message_var = 'message_' . strval($i) ;
+                                 $delete_invite = 'delete_invite_' . strval($i);
+
 
                                  @endphp
                             <h6 class="heading-small text-muted mb-4">Invitations</h6>
@@ -161,18 +172,41 @@
 
                             <div class="pl-lg-4">
                                 <div class="form-group">
+                                    <div class = "counter">
                                     <label class="form-control-label" for="{{$message_var}}">SMS Message text:</label>
                                     <input type="text" name="{{$message_var}}" id="{{$message_var}}" value="{{$tmp_array[$message_var]}}"  class="form-control" required autofocus>
+                                    </div >
                                 </div>
                             </div>
 
+                            <div class="pl-lg-4 my-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name = "{{$delete_invite}}" value="1" id="{{$delete_invite}}">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Delete existing invitation above?
+                                    </label>
+                                </div>
+                            </div>
+
+
+
                             @php
 
-                            $i++;
- }
+
+                                $i++;
+     }
 @endphp
 
-                            <button type="submit" class="btn btn-success mt-4">Update</button>
+                            <div>
+                                <div id="newinput"></div>
+                                <button type="button" id="rowAdder" class="btn btn-primary">Add another invitation</button>
+                            </div>
+                            <h6 class="heading-small text-muted mb-4">{{ __('') }}</h6>
+
+                            <div>
+                                <button type="submit" class="btn btn-success mt-4">Update</button>
+                            </div>
+
                         </form>
 
                         <form method ="post" action="/manage/{{$study->id}}" method="post">
@@ -194,13 +228,117 @@
 @push('css')
     <link rel="stylesheet" href="{{ asset('argon') }}/vendor/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="{{ asset('argon') }}/vendor/quill/dist/quill.core.css">
-
+    <link rel="stylesheet" href=
+        "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href=
+        "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 @endpush
 
 @push('js')
+    <script type="text/javascript">
 
+
+        var num = 0;
+
+        var allElements = document.querySelectorAll('.counter');
+
+        var num = allElements.length;
+        var name = '';
+
+        for(let i = 0; i < num; i++){
+            name = allElements[i].children.item(1).name;
+        }
+        var temp_name = name.substr(-3,3);
+        name =  temp_name.replace(/\D/g,'');
+
+        console.log('Sup');
+        console.log(parseInt(name));
+        // console.log(temp_name);
+        // console.log(allElements[0].children.item(1).name);
+        // console.log(allElements[0].children.item(1).id);
+        // console.log(allElements[0].children.Description);
+
+
+        var sfx = parseInt(name);
+
+        $("#rowAdder").click(function () {
+
+            sfx = sfx + 1;
+            newRowAdd =
+
+                '<div id="addrow"><h6 class="heading-small text-muted mb-4">--Invitation--</h6>' +
+                '<div class="row pl-lg-3">'+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="date_event_' + sfx + '">REDCap Date EVENT</label>' +
+                '<input type="text" name="date_event_' + sfx + '" id="date_event_' + sfx + '" class="form-control" placeholder="baseline_arm_1" required autofocus>' +
+                '</div></div>' +
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="date_var_' + sfx + '">REDCap Date VaARIABLE</label>' +
+                '<input type="text" name="date_var_' + sfx + '" id="date_var_' + sfx + '" class="form-control" placeholder="var_name" required autofocus>' +
+                '</div></div>' +
+                '</div>' +
+
+                '<div class="row pl-lg-3">'+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="form_event_' + sfx + '">Form Complete EVENT</label>' +
+                '<input type="text" name="form_event_' + sfx + '" id="form_event_' + sfx + '" class="form-control" placeholder="screening_arm_1" required autofocus >' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="form_var_' + sfx + '">Form Complete VARIABLE</label>' +
+                '<input type="text" name="form_var_' + sfx + '" id="form_var_' + sfx + '" class="form-control" placeholder="screening_complete" required autofocus >' +
+                '</div></div>'+
+                '</div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="sms_timer_' + sfx + '">Send SMS after # days</label>' +
+                '<input type="number" name="sms_timer_' + sfx + '" id="sms_timer_' + sfx + '" class="form-control" placeholder="#"  required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="num_days_' + sfx + '">Send every # days:</label>' +
+                '<input type="number" name="num_days_' + sfx + '" id="num_days_' + sfx + '" class="form-control" placeholder="#" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="recurrence_' + sfx + '">Number of recurrences:</label>' +
+                '<input type="number" name="recurrence_' + sfx + '" id="recurrence_' + sfx + '" class="form-control" placeholder="#" required autofocus>' +
+                '</div></div>'+
+
+                '<div class="pl-lg-4">' +
+                '<div class="form-group">' +
+                '<label class="form-control-label" for="message_' + sfx + '">SMS Message text:</label>' +
+                '<input type="text" name="message_' + sfx + '" id="message_' + sfx + '" class="form-control" placeholder="Text message text here." required autofocus>' +
+                '</div></div>'+
+
+
+                '<div class="input-group m-3">' +
+                '<div class="input-group-prepend">' +
+                '<button class="btn btn-danger" id="DeleteRow" type="button">' +
+                '<i class="bi bi-trash"></i> Remove Invitation</button> </div>' +
+                ' </div> </div>';
+
+            $('#newinput').append(newRowAdd);
+
+        });
+
+        $("body").on("click", "#DeleteRow", function () {
+
+            $(this).parents("#addrow").remove();
+        })
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/select2/dist/js/select2.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/quill/dist/quill.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="{{ asset('argon') }}/js/items.js"></script>
+
 @endpush

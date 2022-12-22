@@ -41,12 +41,36 @@ class StudyController extends Controller
     //Update listing
     public function update(Request $request, Study $study){
 
+
+        //Check for any new alerts to add to the list
         $inv_array = array();
         foreach($request->except('_token') as $key => $value){
             if(preg_match(' /[0-9]/', substr($key, -1, 1))){
                 $inv_array[$key] = $request->input($key);
             }
         }
+
+
+        //Check if any existing alerts now need to be deleted:
+        foreach($inv_array as $row => $value){
+
+            $test = $row;
+            if( substr($row,0 , 14) === 'delete_invite_'){
+
+                $sfx_to_delete = substr($row,-3 , 3);
+                $sfx_to_delete = preg_replace("/[^0-9]/", "", $sfx_to_delete);
+                $stop = 0;
+
+                foreach ($inv_array as $row => $value){
+                    $needle = substr($row,-3 , 3);
+                    $needle = preg_replace("/[^0-9]/", "", $needle);
+                    if( $needle === $sfx_to_delete){
+                        unset($inv_array[$row]);
+                    }
+                }
+            }
+        }
+
 
         $formFields = $request->validate([
             'study_name' => 'required',

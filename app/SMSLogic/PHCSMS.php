@@ -132,7 +132,14 @@ public function checkForNewSMSAlerts(){
                         //While looping through each record, need to check against stored details
                         $num = count($details) / 8;
                         $i = 0;
-                        for($x=0; $x < $num; $x++) {
+//                        for($x=0; $x < $num; $x++){
+                        for($x=0; $x < sizeof($details); $x++) {
+
+                            if(!isset($details['message_' . $x])){
+                                $i++;
+                                continue;
+                            }
+
                             $date_event = 'date_event_' . strval($i);
                             $date_var = 'date_var_' . strval($i);
                             $form_event = 'form_event_' . strval($i);
