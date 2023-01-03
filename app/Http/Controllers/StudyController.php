@@ -54,7 +54,6 @@ class StudyController extends Controller
         //Check if any existing alerts now need to be deleted:
         foreach($inv_array as $row => $value){
 
-            $test = $row;
             if( substr($row,0 , 14) === 'delete_invite_'){
 
                 $sfx_to_delete = substr($row,-3 , 3);
@@ -86,9 +85,9 @@ class StudyController extends Controller
 
         //TESTING PURPOSES: Use this to run off update button.
         //This is for testing PHCSMS stuff:
-//        $helper = new PHCSMS();
+        $helper = new PHCSMS();
 //        $helper->updateActivityHistory(null, null, null, 'test note 1', 'test error message');
-//        $helper->checkForNewSMSAlerts();
+        $helper->checkForNewSMSAlerts();
 //        $helper->checkForSMSToSend();
 //        $sms_test = $helper->sendSMS(999, 'noapi', '447892936509', 'Testing return values.' );
 

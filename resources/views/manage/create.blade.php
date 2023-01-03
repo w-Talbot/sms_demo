@@ -70,7 +70,7 @@
                                 <div class="form-group">
 {{--                                <div class="form-group{{ $errors->has('url') ? ' has-danger' : '' }}">--}}
                                     <label class="form-control-label" for="url">Study URL:</label>
-                                    <input type="text" name="url" id="url" class="form-control" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/demo/api') }}" value="{{ old('url') }}" required autofocus>
+                                    <input type="text" name="url" id="url" class="form-control" placeholder="{{ __('ex: https://magcap.phc.ox.ac.uk/demo/api/') }}" value="{{ old('url') }}" required autofocus>
                                     @error('url')
                                     <p class="text-red-500 text-cs mt-1">{{$message}}</p>
                                     @enderror
