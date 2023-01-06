@@ -25,14 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('SendSMSMessages:run')->dailyAt('09:00')->withoutOverlapping();
+//        $schedule->command('SendSMSMessages:run')->hourly()->withoutOverlapping();
 
 
         //TESTING:
-//        $schedule->command('SendSMSMessages:run')
-//            ->dailyAt('15:19');
-
-        //END
+        $schedule->command('SendSMSMessages:run')
+            ->everyMinute();
 
     }
 
